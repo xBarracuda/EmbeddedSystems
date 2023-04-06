@@ -1,0 +1,10 @@
+GPIO_Driver.c:8:6:GPIO_PeriClockControl	20
+GPIO_Driver.c:75:6:GPIO_Init	2
+GPIO_Driver.c:107:6:GPIO_DeInit	10
+GPIO_Driver.c:139:9:GPIO_ReadFromInputPin	1
+GPIO_Driver.c:146:10:GPIO_ReadFromInputPort	1
+GPIO_Driver.c:151:6:GPIO_WriteToOutputPin	2
+GPIO_Driver.c:162:6:GPIO_WriteToOutputPort	1
+GPIO_Driver.c:168:6:GPIO_ToggleOutputPin	1
+GPIO_Driver.c:175:6:GPIO_IRQInterruptConfig	1
+GPIO_Driver.c:189:6:GPIO_IRQHandling	1
