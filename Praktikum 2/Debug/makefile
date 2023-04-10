@@ -59,8 +59,8 @@ all: main-build
 main-build: Praktikum\ 2.elf secondary-outputs
 
 # Tool invocations
-Praktikum\ 2.elf Praktikum\ 2.map: $(OBJS) $(USER_OBJS) D:\Programmieren\B.Sc.Informatik\EES\Praktikum\ 2\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Praktikum 2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Programmieren\B.Sc.Informatik\EES\Praktikum 2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Praktikum 2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Praktikum\ 2.elf Praktikum\ 2.map: $(OBJS) $(USER_OBJS) D:\Programmieren\B.Sc.Informatik\EES\ss23_ees_praktikum\Praktikum\ 2\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Praktikum 2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Programmieren\B.Sc.Informatik\EES\ss23_ees_praktikum\Praktikum 2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Praktikum 2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
