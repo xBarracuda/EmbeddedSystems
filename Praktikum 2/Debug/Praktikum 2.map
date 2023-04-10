@@ -383,14 +383,14 @@ LOAD c:/st/stm32cubeide_1.12.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .text.GPIO_WriteToOutputPin
                 0x000000000800041a       0x58 ./Src/GPIO_Driver.o
                 0x000000000800041a                GPIO_WriteToOutputPin
- *fill*         0x0000000008000472        0x2 
- .text.delay    0x0000000008000474       0x38 ./Src/main.o
-                0x0000000008000474                delay
- .text.main     0x00000000080004ac       0xb8 ./Src/main.o
-                0x00000000080004ac                main
+ .text.main     0x0000000008000472       0xb8 ./Src/main.o
+                0x0000000008000472                main
+ *fill*         0x000000000800052a        0x2 
  .text.ampelInit
-                0x0000000008000564       0x94 ./Src/main.o
-                0x0000000008000564                ampelInit
+                0x000000000800052c       0x94 ./Src/main.o
+                0x000000000800052c                ampelInit
+ .text.delay    0x00000000080005c0       0x38 ./Src/main.o
+                0x00000000080005c0                delay
  .text.Reset_Handler
                 0x00000000080005f8       0x50 ./Startup/startup_stm32f407vgtx.o
                 0x00000000080005f8                Reset_Handler
@@ -663,7 +663,7 @@ LOAD c:/st/stm32cubeide_1.12.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_ranges  0x0000000000000058       0x30 ./Src/main.o
  .debug_ranges  0x0000000000000088       0x20 ./Startup/startup_stm32f407vgtx.o
 
-.debug_macro    0x0000000000000000     0x1425
+.debug_macro    0x0000000000000000     0x142f
  .debug_macro   0x0000000000000000       0x8f ./Src/GPIO_Driver.o
  .debug_macro   0x000000000000008f      0xa7e ./Src/GPIO_Driver.o
  .debug_macro   0x0000000000000b0d      0x174 ./Src/GPIO_Driver.o
@@ -675,19 +675,19 @@ LOAD c:/st/stm32cubeide_1.12.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000000eef      0x1df ./Src/GPIO_Driver.o
  .debug_macro   0x00000000000010ce      0x204 ./Src/GPIO_Driver.o
  .debug_macro   0x00000000000012d2       0xc4 ./Src/GPIO_Driver.o
- .debug_macro   0x0000000000001396       0x8f ./Src/main.o
+ .debug_macro   0x0000000000001396       0x99 ./Src/main.o
 
-.debug_line     0x0000000000000000      0xc49
+.debug_line     0x0000000000000000      0xc53
  .debug_line    0x0000000000000000      0x646 ./Src/GPIO_Driver.o
- .debug_line    0x0000000000000646      0x57f ./Src/main.o
- .debug_line    0x0000000000000bc5       0x84 ./Startup/startup_stm32f407vgtx.o
+ .debug_line    0x0000000000000646      0x589 ./Src/main.o
+ .debug_line    0x0000000000000bcf       0x84 ./Startup/startup_stm32f407vgtx.o
 
-.debug_str      0x0000000000000000     0x4fd5
+.debug_str      0x0000000000000000     0x4fde
  .debug_str     0x0000000000000000     0x4f3e ./Src/GPIO_Driver.o
                                        0x512c (size before relaxing)
- .debug_str     0x0000000000004f3e       0x66 ./Src/main.o
-                                       0x5030 (size before relaxing)
- .debug_str     0x0000000000004fa4       0x31 ./Startup/startup_stm32f407vgtx.o
+ .debug_str     0x0000000000004f3e       0x6f ./Src/main.o
+                                       0x5039 (size before relaxing)
+ .debug_str     0x0000000000004fad       0x31 ./Startup/startup_stm32f407vgtx.o
                                          0x7b (size before relaxing)
 
 .comment        0x0000000000000000       0x50

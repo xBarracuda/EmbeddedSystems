@@ -19,20 +19,7 @@
 #include <stdint.h>
 #include "GPIO_Driver.h"
 #include "STM.h"
-
-
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
-
-//Zeit in Sekunden
-void delay(int time){
-	for(volatile uint32_t i = 0; i<500000*time; i++);
-}
-
-void lauflichtInit(GPIO_Handle_t * LED);
-void lauflicht(GPIO_Handle_t * LED);
-void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen);
+#include "main.h"
 
 int main(void)
 {
@@ -76,13 +63,14 @@ int main(void)
 
 void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen){
 
-	//Ampelschaltung
+	//Teil der Config, die immer gleich ist
 	GPIO_PinConfig_t baseConfig;
 	baseConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	baseConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
 	baseConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 	baseConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
+	//Config aller leds
 	LED_Rot->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
 	LED_Rot->GPIO_PinConfig = baseConfig;
 	LED_Rot->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
@@ -95,6 +83,7 @@ void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED
 	LED_Gruen->GPIO_PinConfig = baseConfig;
 	LED_Gruen->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
 
+	//Pin 0-2 als output initialisiert
 	GPIO_Init(LED_Rot);
 	GPIO_Init(LED_Gelb);
 	GPIO_Init(LED_Gruen);
@@ -124,4 +113,9 @@ void lauflicht(GPIO_Handle_t * LED){
 		GPIO_WriteToOutputPin(&LED[i], DISABLE);
 
 	}
+}
+
+//Zeit in Sekunden
+void delay(int time){
+	for(volatile uint32_t i = 0; i<500000*time; i++);
 }

@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_ranges 000000a8  00000000  00000000  000111d0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00001425  00000000  00000000  00011278  2**0
+ 17 .debug_macro  0000142f  00000000  00000000  00011278  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00000c49  00000000  00000000  0001269d  2**0
+ 18 .debug_line   00000c53  00000000  00000000  000126a7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00004fd5  00000000  00000000  000132e6  2**0
+ 19 .debug_str    00004fde  00000000  00000000  000132fa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  000182bb  2**0
+ 20 .comment      00000050  00000000  00000000  000182d8  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00000288  00000000  00000000  0001830c  2**2
+ 21 .debug_frame  00000288  00000000  00000000  00018328  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -474,241 +474,241 @@ void GPIO_WriteToOutputPin(GPIO_Handle_t *pGPIO_Handle, uint8_t Value)
  800046a:	46bd      	mov	sp, r7
  800046c:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000470:	4770      	bx	lr
-	...
 
-08000474 <delay>:
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
-
-//Zeit in Sekunden
-void delay(int time){
- 8000474:	b480      	push	{r7}
- 8000476:	b085      	sub	sp, #20
- 8000478:	af00      	add	r7, sp, #0
- 800047a:	6078      	str	r0, [r7, #4]
-	for(volatile uint32_t i = 0; i<500000*time; i++);
- 800047c:	2300      	movs	r3, #0
- 800047e:	60fb      	str	r3, [r7, #12]
- 8000480:	e002      	b.n	8000488 <delay+0x14>
- 8000482:	68fb      	ldr	r3, [r7, #12]
- 8000484:	3301      	adds	r3, #1
- 8000486:	60fb      	str	r3, [r7, #12]
- 8000488:	687b      	ldr	r3, [r7, #4]
- 800048a:	4a07      	ldr	r2, [pc, #28]	; (80004a8 <delay+0x34>)
- 800048c:	fb02 f303 	mul.w	r3, r2, r3
- 8000490:	461a      	mov	r2, r3
- 8000492:	68fb      	ldr	r3, [r7, #12]
- 8000494:	429a      	cmp	r2, r3
- 8000496:	d8f4      	bhi.n	8000482 <delay+0xe>
-}
- 8000498:	bf00      	nop
- 800049a:	bf00      	nop
- 800049c:	3714      	adds	r7, #20
- 800049e:	46bd      	mov	sp, r7
- 80004a0:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80004a4:	4770      	bx	lr
- 80004a6:	bf00      	nop
- 80004a8:	0007a120 	.word	0x0007a120
-
-080004ac <main>:
-void lauflichtInit(GPIO_Handle_t * LED);
-void lauflicht(GPIO_Handle_t * LED);
-void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen);
+08000472 <main>:
+#include "GPIO_Driver.h"
+#include "STM.h"
+#include "main.h"
 
 int main(void)
 {
- 80004ac:	b580      	push	{r7, lr}
- 80004ae:	b08a      	sub	sp, #40	; 0x28
- 80004b0:	af00      	add	r7, sp, #0
+ 8000472:	b580      	push	{r7, lr}
+ 8000474:	b08a      	sub	sp, #40	; 0x28
+ 8000476:	af00      	add	r7, sp, #0
 		lauflicht(LED_Lauflicht);*/
 
 
 	GPIO_Handle_t LED_Rot, LED_Gelb, LED_Gruen;
 
 	ampelInit(&LED_Rot, &LED_Gelb, &LED_Gruen);
- 80004b2:	1d3a      	adds	r2, r7, #4
- 80004b4:	f107 0110 	add.w	r1, r7, #16
- 80004b8:	f107 031c 	add.w	r3, r7, #28
- 80004bc:	4618      	mov	r0, r3
- 80004be:	f000 f851 	bl	8000564 <ampelInit>
+ 8000478:	1d3a      	adds	r2, r7, #4
+ 800047a:	f107 0110 	add.w	r1, r7, #16
+ 800047e:	f107 031c 	add.w	r3, r7, #28
+ 8000482:	4618      	mov	r0, r3
+ 8000484:	f000 f852 	bl	800052c <ampelInit>
 
 	for(;;){
 		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
- 80004c2:	f107 031c 	add.w	r3, r7, #28
- 80004c6:	2101      	movs	r1, #1
- 80004c8:	4618      	mov	r0, r3
- 80004ca:	f7ff ffa6 	bl	800041a <GPIO_WriteToOutputPin>
+ 8000488:	f107 031c 	add.w	r3, r7, #28
+ 800048c:	2101      	movs	r1, #1
+ 800048e:	4618      	mov	r0, r3
+ 8000490:	f7ff ffc3 	bl	800041a <GPIO_WriteToOutputPin>
 		GPIO_WriteToOutputPin(&LED_Gelb, DISABLE);
- 80004ce:	f107 0310 	add.w	r3, r7, #16
- 80004d2:	2100      	movs	r1, #0
- 80004d4:	4618      	mov	r0, r3
- 80004d6:	f7ff ffa0 	bl	800041a <GPIO_WriteToOutputPin>
+ 8000494:	f107 0310 	add.w	r3, r7, #16
+ 8000498:	2100      	movs	r1, #0
+ 800049a:	4618      	mov	r0, r3
+ 800049c:	f7ff ffbd 	bl	800041a <GPIO_WriteToOutputPin>
 		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
- 80004da:	1d3b      	adds	r3, r7, #4
+ 80004a0:	1d3b      	adds	r3, r7, #4
+ 80004a2:	2100      	movs	r1, #0
+ 80004a4:	4618      	mov	r0, r3
+ 80004a6:	f7ff ffb8 	bl	800041a <GPIO_WriteToOutputPin>
+
+		delay(5);
+ 80004aa:	2005      	movs	r0, #5
+ 80004ac:	f000 f888 	bl	80005c0 <delay>
+
+		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
+ 80004b0:	f107 031c 	add.w	r3, r7, #28
+ 80004b4:	2101      	movs	r1, #1
+ 80004b6:	4618      	mov	r0, r3
+ 80004b8:	f7ff ffaf 	bl	800041a <GPIO_WriteToOutputPin>
+		GPIO_WriteToOutputPin(&LED_Gelb, ENABLE);
+ 80004bc:	f107 0310 	add.w	r3, r7, #16
+ 80004c0:	2101      	movs	r1, #1
+ 80004c2:	4618      	mov	r0, r3
+ 80004c4:	f7ff ffa9 	bl	800041a <GPIO_WriteToOutputPin>
+		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
+ 80004c8:	1d3b      	adds	r3, r7, #4
+ 80004ca:	2100      	movs	r1, #0
+ 80004cc:	4618      	mov	r0, r3
+ 80004ce:	f7ff ffa4 	bl	800041a <GPIO_WriteToOutputPin>
+
+		delay(5);
+ 80004d2:	2005      	movs	r0, #5
+ 80004d4:	f000 f874 	bl	80005c0 <delay>
+
+		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
+ 80004d8:	f107 031c 	add.w	r3, r7, #28
  80004dc:	2100      	movs	r1, #0
  80004de:	4618      	mov	r0, r3
  80004e0:	f7ff ff9b 	bl	800041a <GPIO_WriteToOutputPin>
+		GPIO_WriteToOutputPin(&LED_Gelb, DISABLE);
+ 80004e4:	f107 0310 	add.w	r3, r7, #16
+ 80004e8:	2100      	movs	r1, #0
+ 80004ea:	4618      	mov	r0, r3
+ 80004ec:	f7ff ff95 	bl	800041a <GPIO_WriteToOutputPin>
+		GPIO_WriteToOutputPin(&LED_Gruen, ENABLE);
+ 80004f0:	1d3b      	adds	r3, r7, #4
+ 80004f2:	2101      	movs	r1, #1
+ 80004f4:	4618      	mov	r0, r3
+ 80004f6:	f7ff ff90 	bl	800041a <GPIO_WriteToOutputPin>
 
 		delay(5);
- 80004e4:	2005      	movs	r0, #5
- 80004e6:	f7ff ffc5 	bl	8000474 <delay>
+ 80004fa:	2005      	movs	r0, #5
+ 80004fc:	f000 f860 	bl	80005c0 <delay>
 
-		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
- 80004ea:	f107 031c 	add.w	r3, r7, #28
- 80004ee:	2101      	movs	r1, #1
- 80004f0:	4618      	mov	r0, r3
- 80004f2:	f7ff ff92 	bl	800041a <GPIO_WriteToOutputPin>
-		GPIO_WriteToOutputPin(&LED_Gelb, ENABLE);
- 80004f6:	f107 0310 	add.w	r3, r7, #16
- 80004fa:	2101      	movs	r1, #1
- 80004fc:	4618      	mov	r0, r3
- 80004fe:	f7ff ff8c 	bl	800041a <GPIO_WriteToOutputPin>
-		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
- 8000502:	1d3b      	adds	r3, r7, #4
+		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
+ 8000500:	f107 031c 	add.w	r3, r7, #28
  8000504:	2100      	movs	r1, #0
  8000506:	4618      	mov	r0, r3
  8000508:	f7ff ff87 	bl	800041a <GPIO_WriteToOutputPin>
-
-		delay(5);
- 800050c:	2005      	movs	r0, #5
- 800050e:	f7ff ffb1 	bl	8000474 <delay>
-
-		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
- 8000512:	f107 031c 	add.w	r3, r7, #28
- 8000516:	2100      	movs	r1, #0
- 8000518:	4618      	mov	r0, r3
- 800051a:	f7ff ff7e 	bl	800041a <GPIO_WriteToOutputPin>
-		GPIO_WriteToOutputPin(&LED_Gelb, DISABLE);
- 800051e:	f107 0310 	add.w	r3, r7, #16
- 8000522:	2100      	movs	r1, #0
- 8000524:	4618      	mov	r0, r3
- 8000526:	f7ff ff78 	bl	800041a <GPIO_WriteToOutputPin>
-		GPIO_WriteToOutputPin(&LED_Gruen, ENABLE);
- 800052a:	1d3b      	adds	r3, r7, #4
- 800052c:	2101      	movs	r1, #1
- 800052e:	4618      	mov	r0, r3
- 8000530:	f7ff ff73 	bl	800041a <GPIO_WriteToOutputPin>
-
-		delay(5);
- 8000534:	2005      	movs	r0, #5
- 8000536:	f7ff ff9d 	bl	8000474 <delay>
-
-		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
- 800053a:	f107 031c 	add.w	r3, r7, #28
- 800053e:	2100      	movs	r1, #0
- 8000540:	4618      	mov	r0, r3
- 8000542:	f7ff ff6a 	bl	800041a <GPIO_WriteToOutputPin>
 		GPIO_WriteToOutputPin(&LED_Gelb, ENABLE);
- 8000546:	f107 0310 	add.w	r3, r7, #16
- 800054a:	2101      	movs	r1, #1
- 800054c:	4618      	mov	r0, r3
- 800054e:	f7ff ff64 	bl	800041a <GPIO_WriteToOutputPin>
+ 800050c:	f107 0310 	add.w	r3, r7, #16
+ 8000510:	2101      	movs	r1, #1
+ 8000512:	4618      	mov	r0, r3
+ 8000514:	f7ff ff81 	bl	800041a <GPIO_WriteToOutputPin>
 		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
- 8000552:	1d3b      	adds	r3, r7, #4
- 8000554:	2100      	movs	r1, #0
- 8000556:	4618      	mov	r0, r3
- 8000558:	f7ff ff5f 	bl	800041a <GPIO_WriteToOutputPin>
+ 8000518:	1d3b      	adds	r3, r7, #4
+ 800051a:	2100      	movs	r1, #0
+ 800051c:	4618      	mov	r0, r3
+ 800051e:	f7ff ff7c 	bl	800041a <GPIO_WriteToOutputPin>
 
 		delay(5);
- 800055c:	2005      	movs	r0, #5
- 800055e:	f7ff ff89 	bl	8000474 <delay>
+ 8000522:	2005      	movs	r0, #5
+ 8000524:	f000 f84c 	bl	80005c0 <delay>
 		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
- 8000562:	e7ae      	b.n	80004c2 <main+0x16>
+ 8000528:	e7ae      	b.n	8000488 <main+0x16>
+	...
 
-08000564 <ampelInit>:
+0800052c <ampelInit>:
 	}
 }
 
 void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen){
- 8000564:	b580      	push	{r7, lr}
- 8000566:	b086      	sub	sp, #24
- 8000568:	af00      	add	r7, sp, #0
- 800056a:	60f8      	str	r0, [r7, #12]
- 800056c:	60b9      	str	r1, [r7, #8]
- 800056e:	607a      	str	r2, [r7, #4]
+ 800052c:	b580      	push	{r7, lr}
+ 800052e:	b086      	sub	sp, #24
+ 8000530:	af00      	add	r7, sp, #0
+ 8000532:	60f8      	str	r0, [r7, #12]
+ 8000534:	60b9      	str	r1, [r7, #8]
+ 8000536:	607a      	str	r2, [r7, #4]
 
 	//Ampelschaltung
 	GPIO_PinConfig_t baseConfig;
 	baseConfig.GPIO_PinMode = GPIO_MODE_OUT;
- 8000570:	2301      	movs	r3, #1
- 8000572:	747b      	strb	r3, [r7, #17]
+ 8000538:	2301      	movs	r3, #1
+ 800053a:	747b      	strb	r3, [r7, #17]
 	baseConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
- 8000574:	2300      	movs	r3, #0
- 8000576:	74bb      	strb	r3, [r7, #18]
+ 800053c:	2300      	movs	r3, #0
+ 800053e:	74bb      	strb	r3, [r7, #18]
 	baseConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
- 8000578:	2300      	movs	r3, #0
- 800057a:	753b      	strb	r3, [r7, #20]
+ 8000540:	2300      	movs	r3, #0
+ 8000542:	753b      	strb	r3, [r7, #20]
 	baseConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
- 800057c:	2300      	movs	r3, #0
- 800057e:	74fb      	strb	r3, [r7, #19]
+ 8000544:	2300      	movs	r3, #0
+ 8000546:	74fb      	strb	r3, [r7, #19]
 
 	LED_Rot->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
- 8000580:	68fb      	ldr	r3, [r7, #12]
- 8000582:	4a1c      	ldr	r2, [pc, #112]	; (80005f4 <ampelInit+0x90>)
- 8000584:	601a      	str	r2, [r3, #0]
+ 8000548:	68fb      	ldr	r3, [r7, #12]
+ 800054a:	4a1c      	ldr	r2, [pc, #112]	; (80005bc <ampelInit+0x90>)
+ 800054c:	601a      	str	r2, [r3, #0]
 	LED_Rot->GPIO_PinConfig = baseConfig;
- 8000586:	68fb      	ldr	r3, [r7, #12]
- 8000588:	3304      	adds	r3, #4
- 800058a:	f107 0210 	add.w	r2, r7, #16
- 800058e:	e892 0003 	ldmia.w	r2, {r0, r1}
- 8000592:	6018      	str	r0, [r3, #0]
- 8000594:	3304      	adds	r3, #4
- 8000596:	7019      	strb	r1, [r3, #0]
+ 800054e:	68fb      	ldr	r3, [r7, #12]
+ 8000550:	3304      	adds	r3, #4
+ 8000552:	f107 0210 	add.w	r2, r7, #16
+ 8000556:	e892 0003 	ldmia.w	r2, {r0, r1}
+ 800055a:	6018      	str	r0, [r3, #0]
+ 800055c:	3304      	adds	r3, #4
+ 800055e:	7019      	strb	r1, [r3, #0]
 	LED_Rot->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
- 8000598:	68fb      	ldr	r3, [r7, #12]
- 800059a:	2200      	movs	r2, #0
- 800059c:	711a      	strb	r2, [r3, #4]
+ 8000560:	68fb      	ldr	r3, [r7, #12]
+ 8000562:	2200      	movs	r2, #0
+ 8000564:	711a      	strb	r2, [r3, #4]
 
 	LED_Gelb->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
- 800059e:	68bb      	ldr	r3, [r7, #8]
- 80005a0:	4a14      	ldr	r2, [pc, #80]	; (80005f4 <ampelInit+0x90>)
- 80005a2:	601a      	str	r2, [r3, #0]
+ 8000566:	68bb      	ldr	r3, [r7, #8]
+ 8000568:	4a14      	ldr	r2, [pc, #80]	; (80005bc <ampelInit+0x90>)
+ 800056a:	601a      	str	r2, [r3, #0]
 	LED_Gelb->GPIO_PinConfig = baseConfig;
- 80005a4:	68bb      	ldr	r3, [r7, #8]
- 80005a6:	3304      	adds	r3, #4
- 80005a8:	f107 0210 	add.w	r2, r7, #16
- 80005ac:	e892 0003 	ldmia.w	r2, {r0, r1}
- 80005b0:	6018      	str	r0, [r3, #0]
- 80005b2:	3304      	adds	r3, #4
- 80005b4:	7019      	strb	r1, [r3, #0]
+ 800056c:	68bb      	ldr	r3, [r7, #8]
+ 800056e:	3304      	adds	r3, #4
+ 8000570:	f107 0210 	add.w	r2, r7, #16
+ 8000574:	e892 0003 	ldmia.w	r2, {r0, r1}
+ 8000578:	6018      	str	r0, [r3, #0]
+ 800057a:	3304      	adds	r3, #4
+ 800057c:	7019      	strb	r1, [r3, #0]
 	LED_Gelb->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_1;
- 80005b6:	68bb      	ldr	r3, [r7, #8]
- 80005b8:	2201      	movs	r2, #1
- 80005ba:	711a      	strb	r2, [r3, #4]
+ 800057e:	68bb      	ldr	r3, [r7, #8]
+ 8000580:	2201      	movs	r2, #1
+ 8000582:	711a      	strb	r2, [r3, #4]
 
 	LED_Gruen->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
- 80005bc:	687b      	ldr	r3, [r7, #4]
- 80005be:	4a0d      	ldr	r2, [pc, #52]	; (80005f4 <ampelInit+0x90>)
- 80005c0:	601a      	str	r2, [r3, #0]
+ 8000584:	687b      	ldr	r3, [r7, #4]
+ 8000586:	4a0d      	ldr	r2, [pc, #52]	; (80005bc <ampelInit+0x90>)
+ 8000588:	601a      	str	r2, [r3, #0]
 	LED_Gruen->GPIO_PinConfig = baseConfig;
- 80005c2:	687b      	ldr	r3, [r7, #4]
- 80005c4:	3304      	adds	r3, #4
- 80005c6:	f107 0210 	add.w	r2, r7, #16
- 80005ca:	e892 0003 	ldmia.w	r2, {r0, r1}
- 80005ce:	6018      	str	r0, [r3, #0]
- 80005d0:	3304      	adds	r3, #4
- 80005d2:	7019      	strb	r1, [r3, #0]
+ 800058a:	687b      	ldr	r3, [r7, #4]
+ 800058c:	3304      	adds	r3, #4
+ 800058e:	f107 0210 	add.w	r2, r7, #16
+ 8000592:	e892 0003 	ldmia.w	r2, {r0, r1}
+ 8000596:	6018      	str	r0, [r3, #0]
+ 8000598:	3304      	adds	r3, #4
+ 800059a:	7019      	strb	r1, [r3, #0]
 	LED_Gruen->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
- 80005d4:	687b      	ldr	r3, [r7, #4]
- 80005d6:	2202      	movs	r2, #2
- 80005d8:	711a      	strb	r2, [r3, #4]
+ 800059c:	687b      	ldr	r3, [r7, #4]
+ 800059e:	2202      	movs	r2, #2
+ 80005a0:	711a      	strb	r2, [r3, #4]
 
 	GPIO_Init(LED_Rot);
- 80005da:	68f8      	ldr	r0, [r7, #12]
- 80005dc:	f7ff feec 	bl	80003b8 <GPIO_Init>
+ 80005a2:	68f8      	ldr	r0, [r7, #12]
+ 80005a4:	f7ff ff08 	bl	80003b8 <GPIO_Init>
 	GPIO_Init(LED_Gelb);
- 80005e0:	68b8      	ldr	r0, [r7, #8]
- 80005e2:	f7ff fee9 	bl	80003b8 <GPIO_Init>
+ 80005a8:	68b8      	ldr	r0, [r7, #8]
+ 80005aa:	f7ff ff05 	bl	80003b8 <GPIO_Init>
 	GPIO_Init(LED_Gruen);
- 80005e6:	6878      	ldr	r0, [r7, #4]
- 80005e8:	f7ff fee6 	bl	80003b8 <GPIO_Init>
+ 80005ae:	6878      	ldr	r0, [r7, #4]
+ 80005b0:	f7ff ff02 	bl	80003b8 <GPIO_Init>
 }
- 80005ec:	bf00      	nop
- 80005ee:	3718      	adds	r7, #24
- 80005f0:	46bd      	mov	sp, r7
- 80005f2:	bd80      	pop	{r7, pc}
- 80005f4:	40020c00 	.word	0x40020c00
+ 80005b4:	bf00      	nop
+ 80005b6:	3718      	adds	r7, #24
+ 80005b8:	46bd      	mov	sp, r7
+ 80005ba:	bd80      	pop	{r7, pc}
+ 80005bc:	40020c00 	.word	0x40020c00
+
+080005c0 <delay>:
+
+	}
+}
+
+//Zeit in Sekunden
+void delay(int time){
+ 80005c0:	b480      	push	{r7}
+ 80005c2:	b085      	sub	sp, #20
+ 80005c4:	af00      	add	r7, sp, #0
+ 80005c6:	6078      	str	r0, [r7, #4]
+	for(volatile uint32_t i = 0; i<500000*time; i++);
+ 80005c8:	2300      	movs	r3, #0
+ 80005ca:	60fb      	str	r3, [r7, #12]
+ 80005cc:	e002      	b.n	80005d4 <delay+0x14>
+ 80005ce:	68fb      	ldr	r3, [r7, #12]
+ 80005d0:	3301      	adds	r3, #1
+ 80005d2:	60fb      	str	r3, [r7, #12]
+ 80005d4:	687b      	ldr	r3, [r7, #4]
+ 80005d6:	4a07      	ldr	r2, [pc, #28]	; (80005f4 <delay+0x34>)
+ 80005d8:	fb02 f303 	mul.w	r3, r2, r3
+ 80005dc:	461a      	mov	r2, r3
+ 80005de:	68fb      	ldr	r3, [r7, #12]
+ 80005e0:	429a      	cmp	r2, r3
+ 80005e2:	d8f4      	bhi.n	80005ce <delay+0xe>
+}
+ 80005e4:	bf00      	nop
+ 80005e6:	bf00      	nop
+ 80005e8:	3714      	adds	r7, #20
+ 80005ea:	46bd      	mov	sp, r7
+ 80005ec:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80005f0:	4770      	bx	lr
+ 80005f2:	bf00      	nop
+ 80005f4:	0007a120 	.word	0x0007a120
 
 080005f8 <Reset_Handler>:
 
@@ -787,7 +787,7 @@ LoopFillZerobss:
  8000626:	f000 f811 	bl	800064c <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 800062a:	f7ff ff3f 	bl	80004ac <main>
+ 800062a:	f7ff ff22 	bl	8000472 <main>
 
 0800062e <LoopForever>:
 
