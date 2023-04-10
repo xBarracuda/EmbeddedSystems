@@ -51,18 +51,22 @@ void setAmple(int rot, int gelb, int gruen, GPIO_Handle_t* ampelLED){
 	GPIO_WriteToOutputPin(&ampelLED[2], gruen);
 	delay(5);
 }
+void lauflicht(GPIO_Handle_t * LED){
+	// GPIO_WriteToOutputPort((GPIO_RegDef_t *)GPIOD_BASEADDR, 0xFF);
+	for (int i = 0; i < 4; i++){
+		GPIO_WriteToOutputPin(&LED[i], ENABLE);
+		delay(3);
+		GPIO_WriteToOutputPin(&LED[i], DISABLE);
 
+	}
+}
 void ampelInit(GPIO_Handle_t* ampelLED){
-	//Teil der Config, die immer gleich ist
-	GPIO_PinConfig_t baseConfig;
-	baseConfig.GPIO_PinMode = GPIO_MODE_OUT;
-	baseConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
-	baseConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
-	baseConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
-
 	for	(int i = 0; i < 3; i++){
 		ampelLED[i].pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
-		ampelLED[i].GPIO_PinConfig = baseConfig;
+		ampelLED[i].GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+		ampelLED[i].GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
+		ampelLED[i].GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+		ampelLED[i].GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 		ampelLED[i].GPIO_PinConfig.GPIO_PinNumber = i;
 		GPIO_Init(&ampelLED[i]);
 	}
@@ -84,15 +88,7 @@ void lauflichtInit(GPIO_Handle_t * LED){
 	}
 }
 
-void lauflicht(GPIO_Handle_t * LED){
-	// GPIO_WriteToOutputPort((GPIO_RegDef_t *)GPIOD_BASEADDR, 0xFF);
-	for (int i = 0; i < 4; i++){
-		GPIO_WriteToOutputPin(&LED[i], ENABLE);
-		delay(3);
-		GPIO_WriteToOutputPin(&LED[i], DISABLE);
 
-	}
-}
 
 //Zeit in Sekunden
 void delay(int time){
