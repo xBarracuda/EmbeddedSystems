@@ -24,45 +24,35 @@
 int main(void)
 {
 	//Lauflicht
-	/*GPIO_Handle_t LED_Lauflicht[4];
+	GPIO_Handle_t LED_Lauflicht[4];
 	lauflichtInit(LED_Lauflicht);
 	for(int i=0; i<2; i++)
-		lauflicht(LED_Lauflicht);*/
+		lauflicht(LED_Lauflicht);
 
+	//Ampelsteuerung
+	GPIO_Handle_t ampelLED[3];
 
-	GPIO_Handle_t LED_Rot, LED_Gelb, LED_Gruen;
-
-	ampelInit(&LED_Rot, &LED_Gelb, &LED_Gruen);
+	ampelInit(&ampelLED);
 
 	for(;;){
-		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
-		GPIO_WriteToOutputPin(&LED_Gelb, DISABLE);
-		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
+		setAmple(ENABLE,DISABLE,DISABLE,ampelLED);
 
-		delay(5);
+		setAmple(ENABLE,ENABLE,DISABLE,ampelLED);
 
-		GPIO_WriteToOutputPin(&LED_Rot, ENABLE);
-		GPIO_WriteToOutputPin(&LED_Gelb, ENABLE);
-		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
+		setAmple(DISABLE,DISABLE,ENABLE,ampelLED);
 
-		delay(5);
-
-		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
-		GPIO_WriteToOutputPin(&LED_Gelb, DISABLE);
-		GPIO_WriteToOutputPin(&LED_Gruen, ENABLE);
-
-		delay(5);
-
-		GPIO_WriteToOutputPin(&LED_Rot, DISABLE);
-		GPIO_WriteToOutputPin(&LED_Gelb, ENABLE);
-		GPIO_WriteToOutputPin(&LED_Gruen, DISABLE);
-
-		delay(5);
+		setAmple(DISABLE,ENABLE,DISABLE,ampelLED);
 	}
 }
 
-void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen){
+void setAmple(int rot, int gelb, int gruen, GPIO_Handle_t* ampelLED){
+	GPIO_WriteToOutputPin(&ampelLED[0], rot);
+	GPIO_WriteToOutputPin(&ampelLED[1], gelb);
+	GPIO_WriteToOutputPin(&ampelLED[2], gruen);
+	delay(5);
+}
 
+void ampelInit(GPIO_Handle_t* ampelLED){
 	//Teil der Config, die immer gleich ist
 	GPIO_PinConfig_t baseConfig;
 	baseConfig.GPIO_PinMode = GPIO_MODE_OUT;
@@ -70,23 +60,12 @@ void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED
 	baseConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 	baseConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
-	//Config aller leds
-	LED_Rot->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
-	LED_Rot->GPIO_PinConfig = baseConfig;
-	LED_Rot->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
-
-	LED_Gelb->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
-	LED_Gelb->GPIO_PinConfig = baseConfig;
-	LED_Gelb->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_1;
-
-	LED_Gruen->pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
-	LED_Gruen->GPIO_PinConfig = baseConfig;
-	LED_Gruen->GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
-
-	//Pin 0-2 als output initialisiert
-	GPIO_Init(LED_Rot);
-	GPIO_Init(LED_Gelb);
-	GPIO_Init(LED_Gruen);
+	for	(int i = 0; i < 3; i++){
+		ampelLED[i].pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
+		ampelLED[i].GPIO_PinConfig = baseConfig;
+		ampelLED[i].GPIO_PinConfig.GPIO_PinNumber = i;
+		GPIO_Init(&ampelLED[i]);
+	}
 }
 
 void lauflichtInit(GPIO_Handle_t * LED){

@@ -15,6 +15,7 @@
 void delay(int time);
 void lauflichtInit(GPIO_Handle_t * LED);
 void lauflicht(GPIO_Handle_t * LED);
-void ampelInit(GPIO_Handle_t* LED_Rot,GPIO_Handle_t* LED_Gelb,GPIO_Handle_t* LED_Gruen);
+void ampelInit(GPIO_Handle_t* ampelLED);
+void setAmple(int rot, int gelb, int gruen, GPIO_Handle_t* ampelLED);
 
 #endif /* MAIN_H_ */
