@@ -88,10 +88,36 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 	 
 	 else
 	 { 
-	    // IRQ-Modus (Muss erst im dritten Praktikum bearbeitet werden)
-		// 1. Konfiguration für Trigger auf fallenende, steigende oder beide Flanken
-		//2. Konfiguration des entsprechenden GPIO-Ports in SYSCFG_EXTICR
-		//3  Aktivieren des EXTI Interrupts handling in IMR-Register
+		 // IRQ-Modus (Muss erst im dritten Praktikum bearbeitet werden)
+		 // 1. Konfiguration für Trigger auf fallenende, steigende oder beide Flanken
+		 // 2. Konfiguration des entsprechenden GPIO-Ports in SYSCFG_EXTICR
+		 // 3.  Aktivieren des EXTI Interrupts handling in IMR-Register
+
+		 EXTI_RegDef_t* exti = ((EXTI_RegDef_t*)(EXTI_BASEADDR));
+		 exti->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 exti->FTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+
+		 switch (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode){
+		 case (GPIO_MODE_IT_FT):
+				 exti->RTSR |= (0 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 	 	 exti->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+				 break;
+		 case (GPIO_MODE_IT_RT):
+		 	 	 exti->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 		 exti->FTSR |= (0 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 		 break;
+		 case (GPIO_MODE_IT_RFT):
+				 exti->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 		 exti->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		 		 break;
+		 }
+
+		 SYSCFG_RegDef_t* syscfg = ((SYSCFG_RegDef_t*)SYSCFG_BASEADDR);
+		 char bitPosition = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4;
+		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4+1] &= ~(0b1111 << bitPosition*4);
+		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4+1] |= (GPIO_BASEADDR_TO_CODE(pGPIOHandle)<< bitPosition*4);
+
+		 exti->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	 }
 	 
 	// ####################################### ENDE IRQ #####################################################################
