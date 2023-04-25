@@ -93,7 +93,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		 // 2. Konfiguration des entsprechenden GPIO-Ports in SYSCFG_EXTICR
 		 // 3.  Aktivieren des EXTI Interrupts handling in IMR-Register
 
-		 EXTI_RegDef_t* exti = ((EXTI_RegDef_t*)(EXTI_BASEADDR));
+		 EXTI_RegDef_t* exti = EXTI;
 		 exti->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		 exti->FTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 
@@ -112,10 +112,10 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		 		 break;
 		 }
 
-		 SYSCFG_RegDef_t* syscfg = ((SYSCFG_RegDef_t*)SYSCFG_BASEADDR);
-		 char bitPosition = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4;
-		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4+1] &= ~(0b1111 << bitPosition*4);
-		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4+1] |= (GPIO_BASEADDR_TO_CODE(pGPIOHandle)<< bitPosition*4);
+		 SYSCFG_RegDef_t* syscfg = SYSCFG;
+		 uint8_t bitPosition = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4*4; //Errechnet die Startposition des Blocks im Register. Bei Pin 5 ergibt sich Bit 4, da wir den zweiten Block im Register[4-7] setzen müssen
+		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4] &= ~(0b1111 << bitPosition); //Resetet den Block
+		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4] |= (GPIO_BASEADDR_TO_CODE(pGPIOHandle)<< bitPosition); //Setzt den Block
 
 		 exti->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	 }
@@ -210,13 +210,31 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
 	// Hinweis: Bedenken Sie welche ISER und ICER Register des Prozessors in dem verwendeten Mikrocontroller benutzt werden können.
 	// Nicht alle Interrupts sind im Mikrocontroller aktiv. Überprüfen sie dazu das Handbuch (Reference Manual) des Mikrocontrollers.
+	uint8_t bitPosition = IRQNumber%4*4;
+	uint32_t* reg;
 	if(EnorDi == ENABLE)
 	{
 		//ToDo: Programmieren der entsprechenden ISERx register
+		switch(IRQNumber/4){
+			case (0): reg = (uint32_t*)NVIC_ISER0;break;
+			case (1): reg = (uint32_t*)NVIC_ISER1;break;
+			case (2): reg = (uint32_t*)NVIC_ISER2;break;
+			case (3): reg = (uint32_t*)NVIC_ISER3;break;
+		}
+		reg &= ~(0b1111 << bitPosition);
+		reg |= (0b0001 << bitPosition);
 	}
 	else
 	{
 		//ToDo: Programmieren der entsprechenden ICERx register
+		switch(IRQNumber/4){
+			case (0): reg = (uint32_t*)NVIC_ICER0;break;
+			case (1): reg = (uint32_t*)NVIC_ICER1;break;
+			case (2): reg = (uint32_t*)NVIC_ICER2;break;
+			case (3): reg = (uint32_t*)NVIC_ICER3;break;
+		}
+		reg &= ~(0b1111 << bitPosition);
+		reg |= (0b0001 << bitPosition);
 	}
 }
 
