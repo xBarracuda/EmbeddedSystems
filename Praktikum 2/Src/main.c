@@ -88,8 +88,6 @@ void lauflichtInit(GPIO_Handle_t * LED){
 	}
 }
 
-
-
 //Zeit in Sekunden
 void delay(int time){
 	for(volatile uint32_t i = 0; i<500000*time; i++);

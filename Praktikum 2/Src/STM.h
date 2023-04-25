@@ -45,7 +45,7 @@
  * Basis Adresses des Reset and Clock control Module (RCC)
  * * TODO: Addresse ergänzen 
  */
-#define RCC_BASEADDR							0x40023800U
+#define RCC_BASEADDR							(AHB1PERIPH_BASEADDR +0x3800U
 
 /********************************** Register definition structs **********************************/
 
@@ -161,13 +161,13 @@ typedef struct
  * TODO: Ausfüllen der IRQ--Nummern für EXTI
  */
 
-#define IRQ_NO_EXTI0 		0x00000058
-#define IRQ_NO_EXTI1 		0x0000005C
-#define IRQ_NO_EXTI2 		0x00000060
-#define IRQ_NO_EXTI3 		0x00000064
-#define IRQ_NO_EXTI4 		0x00000068
-#define IRQ_NO_EXTI9_5 		0x0000009C
-#define IRQ_NO_EXTI15_10 	0x000000E0
+#define IRQ_NO_EXTI0 		(EXTI_BASEADDR + 0x58U)
+#define IRQ_NO_EXTI1 		(EXTI_BASEADDR + 0x5CU)
+#define IRQ_NO_EXTI2 		(EXTI_BASEADDR + 0x60U)
+#define IRQ_NO_EXTI3 		(EXTI_BASEADDR + 0x64U)
+#define IRQ_NO_EXTI4 		(EXTI_BASEADDR + 0x68U)
+#define IRQ_NO_EXTI9_5 		(EXTI_BASEADDR + 0x9CU)
+#define IRQ_NO_EXTI15_10 	(EXTI_BASEADDR + 0xE0U)
 
 // ####################################### ENDE IRQ ############################################################
 
