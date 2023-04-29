@@ -62,7 +62,7 @@ void lauflicht(GPIO_Handle_t * LED){
 }
 void ampelInit(GPIO_Handle_t* ampelLED){
 	for	(int i = 0; i < 3; i++){
-		ampelLED[i].pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
+		ampelLED[i].pGPIOx = GPIOD;
 		ampelLED[i].GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 		ampelLED[i].GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
 		ampelLED[i].GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
@@ -74,7 +74,7 @@ void ampelInit(GPIO_Handle_t* ampelLED){
 
 void lauflichtInit(GPIO_Handle_t * LED){
 	for	(int i = 0; i < 4; i++){
-		LED[i].pGPIOx = (GPIO_RegDef_t *)GPIOD_BASEADDR;
+		LED[i].pGPIOx = GPIOD;
 		LED[i].GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15 - i;
 		LED[i].GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 		LED[i].GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
@@ -87,8 +87,6 @@ void lauflichtInit(GPIO_Handle_t * LED){
 		GPIO_WriteToOutputPin(&LED[i], DISABLE);
 	}
 }
-
-
 
 //Zeit in Sekunden
 void delay(int time){

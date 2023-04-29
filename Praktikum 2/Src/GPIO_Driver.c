@@ -97,11 +97,17 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 	// ####################################### ENDE IRQ #####################################################################
 	
 	 //Konfigurieren des Output-Speeds
-	 
+	 pGPIOHandle->pGPIOx->OUTPUT_SPEED &= ~(0b11 <<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*2); // löschen der Bits im Speed-Register
+	 pGPIOHandle->pGPIOx->OUTPUT_SPEED |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed<<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*2); // setzen der Bits im ode Register an der jeweiligen Stelle
+
 	 //Konfigurieren des Pull-up/down Settings
-	 
+	 pGPIOHandle->pGPIOx->PULL_UP_DOWN &= ~(0b11 <<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*2); // löschen der Bits im PullUp/Down-Register
+	 pGPIOHandle->pGPIOx->PULL_UP_DOWN |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl<<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*2); // setzen der Bits im ode Register an der jeweiligen Stelle
+
 	 //Konfigurieren des Output modus
-	 
+	 pGPIOHandle->pGPIOx->OUTPUT_TYPE &= ~(1 <<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // löschen der Bits im Output Type-Register
+	 pGPIOHandle->pGPIOx->OUTPUT_TYPE |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType<<pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // setzen der Bits im ode Register an der jeweiligen Stelle
+
 }
 
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
@@ -150,11 +156,13 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 
 void GPIO_WriteToOutputPin(GPIO_Handle_t *pGPIO_Handle, uint8_t Value)
 {
-	if(Value <= 1){
-		uint16_t new_val = Value; //0000 0000 0000 0001 | 0
-		new_val = (new_val << pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber); // shifte 1 oder 0 an die PinNumber, an der wir ausgeben wollen
-		pGPIO_Handle->pGPIOx->OUTPUT_DATA_REG &= ~(1 << pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber); // lösche die Stelle im Output Register der Pinnumber
+	uint16_t new_val = Value; //0000 0000 0000 0001 | 0
+	new_val = (new_val << pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber); // shifte 1 oder 0 an die PinNumber, an der wir ausgeben wollen
+
+	if(Value == 1){
 		pGPIO_Handle->pGPIOx->OUTPUT_DATA_REG |= new_val; // 16 Bit Register mit new_val verodern, um an der jeweiligen Pin-Stelle 1 oder 0 zu schreiben
+	}else{
+		pGPIO_Handle->pGPIOx->OUTPUT_DATA_REG &= ~(1 << pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber); // lösche die Stelle im Output Register der Pinnumber
 	}
 }
 
