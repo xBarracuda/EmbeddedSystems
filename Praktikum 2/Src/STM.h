@@ -83,7 +83,6 @@ typedef struct
   volatile uint32_t RESERVED_2[21];
 } RCC_RegDef_t;
 
-
 /********************************** Macros to access peripherals **********************************/
 
 /*

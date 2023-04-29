@@ -1,6 +1,6 @@
 /*
  * STM.h
- * Vorlage fürs Praktikum 
+ * Vorlage fürs Praktikum
  */
 
 #ifndef STM32F407XX_H_
@@ -43,9 +43,9 @@
 
 /*
  * Basis Adresses des Reset and Clock control Module (RCC)
- * * TODO: Addresse ergänzen 
+ * * TODO: Addresse ergänzen
  */
-#define RCC_BASEADDR							(AHB1PERIPH_BASEADDR +0x3800U
+#define RCC_BASEADDR							(AHB1PERIPH_BASEADDR +0x3800U)
 
 /********************************** Register definition structs **********************************/
 
@@ -81,7 +81,7 @@ typedef struct
   volatile uint32_t RESERVED_1[7];
   volatile uint32_t AHB1ENR;     				/* Address offset: 0x30 */
   volatile uint32_t RESERVED_2[21];
-} RCC_RegDef_t;
+}RCC_RegDef_t;
 
 
 /********************************** Macros to access peripherals **********************************/
@@ -101,12 +101,12 @@ typedef struct
 #define GPIOI  									((GPIO_RegDef_t*)GPIOI_BASEADDR)
 #define RCC 									((RCC_RegDef_t*)RCC_BASEADDR)
 
-
 /*
  * Clock Enable Makros für GPIO-Ports
  * TODO: Schreiben Sie Clock Enable und Disable Makros für die GPIO-Ports A bis I
  * Sehen Sie sich dazu die Informationen im Handbuch zum AHB1ENR-Register des RCC-Moduls an.
- */		
+ */
+
 #define GPIOA_PCLK_EN()							(RCC->AHB1ENR |= 1 << 0)
 #define GPIOB_PCLK_EN()							(RCC->AHB1ENR |= 1 << 1)
 #define GPIOC_PCLK_EN()							(RCC->AHB1ENR |= 1 << 2)
@@ -126,7 +126,6 @@ typedef struct
 #define GPIOG_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 6))
 #define GPIOH_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 7))
 #define GPIOI_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 8))
-
 /*
  *  Makros um GPIO-Ports zurückzusetzen
  */

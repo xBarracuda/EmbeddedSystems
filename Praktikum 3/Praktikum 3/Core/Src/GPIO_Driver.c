@@ -210,37 +210,39 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
 	// Hinweis: Bedenken Sie welche ISER und ICER Register des Prozessors in dem verwendeten Mikrocontroller benutzt werden können.
 	// Nicht alle Interrupts sind im Mikrocontroller aktiv. Überprüfen sie dazu das Handbuch (Reference Manual) des Mikrocontrollers.
-	uint8_t bitPosition = IRQNumber%4*4;
-	uint32_t* reg;
+	uint32_t reg;
+	IRQNumber += OFFSET_ISER;
+	uint8_t ISER_Num = IRQNumber / 32;
+	uint8_t bitPosition = IRQNumber % 32;
+
 	if(EnorDi == ENABLE)
 	{
 		//ToDo: Programmieren der entsprechenden ISERx register
-		switch(IRQNumber/4){
-			case (0): reg = (uint32_t*)NVIC_ISER0;break;
-			case (1): reg = (uint32_t*)NVIC_ISER1;break;
-			case (2): reg = (uint32_t*)NVIC_ISER2;break;
-			case (3): reg = (uint32_t*)NVIC_ISER3;break;
+		switch(ISER_Num){
+			case 0: reg = NVIC_ISER0; break;
+			case 1: reg = NVIC_ISER1; break;
+			case 2: reg = NVIC_ISER2; break;
+			case 3: reg = NVIC_ISER3; break;
 		}
-		reg &= ~(0b1111 << bitPosition);
-		reg |= (0b0001 << bitPosition);
 	}
 	else
 	{
 		//ToDo: Programmieren der entsprechenden ICERx register
-		switch(IRQNumber/4){
-			case (0): reg = (uint32_t*)NVIC_ICER0;break;
-			case (1): reg = (uint32_t*)NVIC_ICER1;break;
-			case (2): reg = (uint32_t*)NVIC_ICER2;break;
-			case (3): reg = (uint32_t*)NVIC_ICER3;break;
+		switch(ISER_Num){
+			case 0: reg = NVIC_ICER0; break;
+			case 1: reg = NVIC_ICER1; break;
+			case 2: reg = NVIC_ICER2; break;
+			case 3: reg = NVIC_ICER3; break;
 		}
-		reg &= ~(0b1111 << bitPosition);
-		reg |= (0b0001 << bitPosition);
 	}
+	reg |= 1 << bitPosition;
 }
 
 void GPIO_IRQHandling(uint8_t PinNumber)
 {
 	// Abfrage und zurücksetzen des EXTI-PR bits
+	EXTI_RegDef_t* exti = EXTI;
+	exti->PR |= (1 << PinNumber);
 }
 
 // ####################################### ENDE IRQ ###################################################################

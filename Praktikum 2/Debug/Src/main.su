@@ -3,4 +3,4 @@
 ../Src/main.c:54:6:lauflicht	24	static
 ../Src/main.c:63:6:ampelInit	24	static
 ../Src/main.c:75:6:lauflichtInit	24	static
-../Src/main.c:94:6:delay	24	static
+../Src/main.c:92:6:delay	24	static

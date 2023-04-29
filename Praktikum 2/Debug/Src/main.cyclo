@@ -3,4 +3,4 @@ main.c:48:6:setAmple	1
 main.c:54:6:lauflicht	2
 main.c:63:6:ampelInit	2
 main.c:75:6:lauflichtInit	3
-main.c:94:6:delay	2
+main.c:92:6:delay	2
