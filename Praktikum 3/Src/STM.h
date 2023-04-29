@@ -1,6 +1,6 @@
 /*
  * STM.h
- * Vorlage fürs Praktikum 
+ * Vorlage fürs Praktikum
  */
 
 #ifndef STM32F407XX_H_
@@ -43,7 +43,7 @@
 
 /*
  * Basis Adresses des Reset and Clock control Module (RCC)
- * * TODO: Addresse ergänzen 
+ * * TODO: Addresse ergänzen
  */
 #define RCC_BASEADDR							(AHB1PERIPH_BASEADDR +0x3800U)
 
@@ -81,7 +81,8 @@ typedef struct
   volatile uint32_t RESERVED_1[7];
   volatile uint32_t AHB1ENR;     				/* Address offset: 0x30 */
   volatile uint32_t RESERVED_2[21];
-} RCC_RegDef_t;
+}RCC_RegDef_t;
+
 
 /********************************** Macros to access peripherals **********************************/
 
@@ -100,12 +101,12 @@ typedef struct
 #define GPIOI  									((GPIO_RegDef_t*)GPIOI_BASEADDR)
 #define RCC 									((RCC_RegDef_t*)RCC_BASEADDR)
 
-
 /*
  * Clock Enable Makros für GPIO-Ports
  * TODO: Schreiben Sie Clock Enable und Disable Makros für die GPIO-Ports A bis I
  * Sehen Sie sich dazu die Informationen im Handbuch zum AHB1ENR-Register des RCC-Moduls an.
- */		
+ */
+
 #define GPIOA_PCLK_EN()							(RCC->AHB1ENR |= 1 << 0)
 #define GPIOB_PCLK_EN()							(RCC->AHB1ENR |= 1 << 1)
 #define GPIOC_PCLK_EN()							(RCC->AHB1ENR |= 1 << 2)
@@ -125,7 +126,6 @@ typedef struct
 #define GPIOG_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 6))
 #define GPIOH_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 7))
 #define GPIOI_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 8))
-
 /*
  *  Makros um GPIO-Ports zurückzusetzen
  */
@@ -160,13 +160,13 @@ typedef struct
  * TODO: Ausfüllen der IRQ--Nummern für EXTI
  */
 
-#define IRQ_NO_EXTI0 		(EXTI_BASEADDR + 0x58U)
-#define IRQ_NO_EXTI1 		(EXTI_BASEADDR + 0x5CU)
-#define IRQ_NO_EXTI2 		(EXTI_BASEADDR + 0x60U)
-#define IRQ_NO_EXTI3 		(EXTI_BASEADDR + 0x64U)
-#define IRQ_NO_EXTI4 		(EXTI_BASEADDR + 0x68U)
-#define IRQ_NO_EXTI9_5 		(EXTI_BASEADDR + 0x9CU)
-#define IRQ_NO_EXTI15_10 	(EXTI_BASEADDR + 0xE0U)
+#define IRQ_NO_EXTI0 		6
+#define IRQ_NO_EXTI1 		7
+#define IRQ_NO_EXTI2 		8
+#define IRQ_NO_EXTI3 		9
+#define IRQ_NO_EXTI4 		10
+#define IRQ_NO_EXTI9_5 		23
+#define IRQ_NO_EXTI15_10 	40
 
 // ####################################### ENDE IRQ ############################################################
 
