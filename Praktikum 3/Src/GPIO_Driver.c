@@ -111,7 +111,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		 		 exti->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		 		 break;
 		 }
-
+		 SYSCFG_PCLK_EN();
 		 SYSCFG_RegDef_t* syscfg = SYSCFG;
 		 uint8_t bitPosition = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4*4; //Errechnet die Startposition des Blocks im Register. Bei Pin 5 ergibt sich Bit 4, da wir den zweiten Block im Register[4-7] setzen müssen
 		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4] &= ~(0b1111 << bitPosition); //Resetet den Block

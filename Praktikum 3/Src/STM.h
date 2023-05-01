@@ -80,7 +80,9 @@ typedef struct
   volatile uint32_t AHB1RSTR;     	 			/*Address offset: 0x10 */
   volatile uint32_t RESERVED_1[7];
   volatile uint32_t AHB1ENR;     				/* Address offset: 0x30 */
-  volatile uint32_t RESERVED_2[21];
+  volatile uint32_t RESERVED_2[4];
+  volatile uint32_t APB2ENR;					/* Address offet: 0x44*/
+  volatile uint32_t RESERVED_3[17];
 }RCC_RegDef_t;
 
 
@@ -184,8 +186,8 @@ typedef struct
  * Clock Enable und Disable Makros für SYSCFG
  * TODO: Vervollständigen Sie die Makros zum anschalten und Abschalten der Syscfg Clock
  */
-#define SYSCFG_PCLK_EN()
-#define SYSCFG_PCLK_DI()
+#define SYSCFG_PCLK_EN()	(RCC->APB2ENR |= 1 << 14)
+#define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1 << 14))
 
 /*
  * Register struct EXTI
