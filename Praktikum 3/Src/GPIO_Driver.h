@@ -88,10 +88,6 @@ typedef struct
 #define GPIO_PIN_PU					1
 #define GPIO_PIN_PD					2
 
-/*
- * NVIC Offset
- */
-#define OFFSET_ISER 13
 
 /******************************************************************************************
  *								Funktionen des Treibers
