@@ -28,6 +28,14 @@
 #define AHB2PERIPH_BASEADDR						0x50000000U
 
 /*
+ * Basis-Adressen der Timer-Interrupts
+ */
+
+#define TIM6_BASEADDR	(APB1PERIPH_BASEADDR + 0x1000U) // Basic-Timer
+#define TIM7_BASEADDR	(APB1PERIPH_BASEADDR + 0x1400U) // Basic-Timer
+
+
+/*
  * Basis Adresses der GPIO-Ports
  */
 
@@ -87,6 +95,12 @@ typedef struct
 
 
 /********************************** Macros to access peripherals **********************************/
+
+/*
+ * Basisadressen gecastet auf entsprechende structs
+ */
+#define TIM6									((TIMER_RegDef_t*)TIM6_BASEADDR)
+#define TIM7									((TIMER_RegDef_t*)TIM7_BASEADDR)
 
 /*
  * Basisadressen gecastet auf entsprechende structs
@@ -217,6 +231,32 @@ typedef struct
 	volatile uint32_t CFGR;          	/*!<										Address offset: 0x2C		*/
 } SYSCFG_RegDef_t;
 
+
+typedef struct
+{
+	TIMER_RegDef_t *pTIMx;		/*!< Basisadresse des Timers >*/
+	TIMER_Config_t TIM_Config;  /*!< Timer Konfiguration >*/
+}TIMER_Handle_t;
+
+typedef struct
+{
+	volatile uint32_t CR1;				/*!< 										Address offset: 0x00		*/
+	volatile uint32_t CR2;				/*!< 										Address offset: 0x04		*/
+	volatile uint32_t RESERVED1;		/*!< 										Address offset: 0x08		*/
+	volatile uint32_t DIER;				/*!< 										Address offset: 0x0C		*/
+	volatile uint32_t SR;				/*!< 										Address offset: 0x10		*/
+	volatile uint32_t EGR;				/*!< 										Address offset: 0x14		*/
+	volatile uint32_t RESERVED2[3];     /*!< 										Address offset: 0x18-0x20	*/
+	volatile uint32_t CNT;				/*!< 										Address offset: 0x24		*/
+	volatile uint32_t PSC;				/*!< 										Address offset: 0x28		*/
+	volatile uint32_t ARR;				/*!< 										Address offset: 0x2C		*/
+}TIMER_RegDef_t;
+
+typedef struct{
+	uint32_t Mode;
+	uint32_t Period;
+	uint32_t Prescaler;
+}TIMER_Config_t;
 
 /*
  * Makro zum zurückgeben eines Codes ( between 0 to 7) für den entsprechenden GPIO-PORT (x)
