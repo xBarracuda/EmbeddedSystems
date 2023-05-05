@@ -17,5 +17,7 @@ void lauflichtInit(GPIO_Handle_t * LED);
 void lauflicht(GPIO_Handle_t * LED);
 void ampelInit(GPIO_Handle_t* ampelLED);
 void setAmple(int rot, int gelb, int gruen, GPIO_Handle_t* ampelLED);
-
+void TIM6_DAC_IRQHandler(void);
+void TIM7_IRQHandler(void);
+void EXTI3_IRQHandler(void);
 #endif /* MAIN_H_ */

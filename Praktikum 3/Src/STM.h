@@ -34,6 +34,8 @@
 #define TIM6_BASEADDR	(APB1PERIPH_BASEADDR + 0x1000U) // Basic-Timer
 #define TIM7_BASEADDR	(APB1PERIPH_BASEADDR + 0x1400U) // Basic-Timer
 
+#define TIM_MODE_IRQ 1
+#define TIM_MODE_NO_IRQ 0
 
 /*
  * Basis Adresses der GPIO-Ports
@@ -88,7 +90,8 @@ typedef struct
   volatile uint32_t AHB1RSTR;     	 			/*Address offset: 0x10 */
   volatile uint32_t RESERVED_1[7];
   volatile uint32_t AHB1ENR;     				/* Address offset: 0x30 */
-  volatile uint32_t RESERVED_2[4];
+  volatile uint32_t RESERVED_2[3];
+  volatile uint32_t APB1ENR;					/* Address offet: 0x40*/
   volatile uint32_t APB2ENR;					/* Address offet: 0x44*/
   volatile uint32_t RESERVED_3[17];
 }RCC_RegDef_t;
@@ -117,6 +120,8 @@ typedef struct
 #define GPIOI  									((GPIO_RegDef_t*)GPIOI_BASEADDR)
 #define RCC 									((RCC_RegDef_t*)RCC_BASEADDR)
 
+
+
 /*
  * Clock Enable Makros für GPIO-Ports
  * TODO: Schreiben Sie Clock Enable und Disable Makros für die GPIO-Ports A bis I
@@ -133,6 +138,9 @@ typedef struct
 #define GPIOH_PCLK_EN()							(RCC->AHB1ENR |= 1 << 7)
 #define GPIOI_PCLK_EN()							(RCC->AHB1ENR |= 1 << 8)
 
+#define TIM6_PCLK_EN()							(RCC->APB1ENR |= 1 << 4)
+#define TIM7_PCLK_EN()							(RCC->APB1ENR |= 1 << 5)
+
 #define GPIOA_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 0))
 #define GPIOB_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 1))
 #define GPIOC_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 2))
@@ -142,6 +150,10 @@ typedef struct
 #define GPIOG_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 6))
 #define GPIOH_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 7))
 #define GPIOI_PCLK_DI()							(RCC->AHB1ENR &= ~(1 << 8))
+
+#define TIM6_PCLK_DI()							(RCC->APB1ENR &= ~(1 << 4))
+#define TIM7_PCLK_DI()							(RCC->APB1ENR &= ~(1 << 5))
+
 /*
  *  Makros um GPIO-Ports zurückzusetzen
  */
@@ -183,6 +195,9 @@ typedef struct
 #define IRQ_NO_EXTI4 		10
 #define IRQ_NO_EXTI9_5 		23
 #define IRQ_NO_EXTI15_10 	40
+
+#define IRQ_NO_TIM6 54
+#define IRQ_NO_TIM7 55
 
 // ####################################### ENDE IRQ ############################################################
 
@@ -231,13 +246,6 @@ typedef struct
 	volatile uint32_t CFGR;          	/*!<										Address offset: 0x2C		*/
 } SYSCFG_RegDef_t;
 
-
-typedef struct
-{
-	TIMER_RegDef_t *pTIMx;		/*!< Basisadresse des Timers >*/
-	TIMER_Config_t TIM_Config;  /*!< Timer Konfiguration >*/
-}TIMER_Handle_t;
-
 typedef struct
 {
 	volatile uint32_t CR1;				/*!< 										Address offset: 0x00		*/
@@ -251,13 +259,6 @@ typedef struct
 	volatile uint32_t PSC;				/*!< 										Address offset: 0x28		*/
 	volatile uint32_t ARR;				/*!< 										Address offset: 0x2C		*/
 }TIMER_RegDef_t;
-
-typedef struct{
-	uint32_t Mode;
-	uint32_t Period;
-	uint32_t Prescaler;
-}TIMER_Config_t;
-
 /*
  * Makro zum zurückgeben eines Codes ( between 0 to 7) für den entsprechenden GPIO-PORT (x)
  */

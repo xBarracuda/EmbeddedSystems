@@ -21,16 +21,32 @@
 #include "STM.h"
 #include "main.h"
 
-uint8_t state = 1;
-uint8_t stopDelay = 0;
+uint8_t state = 0;
+TIMER_Handle_t timer5sec;
+TIMER_Handle_t timer7sec;
 
 int main(void)
 {
+	timer5sec.pTIMx = TIM6;
+	timer5sec.TIM_Config.Mode = TIM_MODE_IRQ;
+	timer5sec.TIM_Config.Period = 65003;
+	timer5sec.TIM_Config.Prescaler = 1226;
+
+	TIM_Init(&timer5sec);
+	TIM_StartTimer(&timer5sec);
+
+	timer7sec.pTIMx = TIM7;
+	timer7sec.TIM_Config.Mode = TIM_MODE_IRQ;
+	timer7sec.TIM_Config.Period = 64980;
+	timer7sec.TIM_Config.Prescaler = 1717;
+
+	TIM_Init(&timer7sec);
+
 	GPIO_Handle_t btn;
 	//Button-Konfiguration
 	btn.pGPIOx = GPIOD;
 	btn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
-	btn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+	btn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_RT;
 	btn.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 	btn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PD;
 	btn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_MEDIUM;
@@ -47,19 +63,19 @@ int main(void)
 	//Ampelsteuerung
 	GPIO_Handle_t ampelLED[3];
 
-	ampelInit(&ampelLED);
+	ampelInit(ampelLED);
 
 	for(;;){
 		switch(state){
-			case 0: state =1; setAmple(ENABLE,DISABLE,DISABLE,ampelLED); delay(2); break;
+			case 0: setAmple(ENABLE,DISABLE,DISABLE,ampelLED); break;
 
-			case 1: state =2; setAmple(ENABLE,DISABLE,DISABLE,ampelLED); break;
+			case 1: setAmple(ENABLE,DISABLE,DISABLE,ampelLED); break;
 
-			case 2: state =3; setAmple(ENABLE,ENABLE,DISABLE,ampelLED); break;
+			case 2: setAmple(ENABLE,ENABLE,DISABLE,ampelLED); break;
 
-			case 3: state =4; setAmple(DISABLE,DISABLE,ENABLE,ampelLED); break;
+			case 3: setAmple(DISABLE,DISABLE,ENABLE,ampelLED); break;
 
-			case 4: state =1; setAmple(DISABLE,ENABLE,DISABLE,ampelLED); break;
+			case 4: setAmple(DISABLE,ENABLE,DISABLE,ampelLED); break;
 		}
 	}
 
@@ -70,7 +86,6 @@ void setAmple(int rot, int gelb, int gruen, GPIO_Handle_t* ampelLED){
 	GPIO_WriteToOutputPin(&ampelLED[0], rot);
 	GPIO_WriteToOutputPin(&ampelLED[1], gelb);
 	GPIO_WriteToOutputPin(&ampelLED[2], gruen);
-	delay(5);
 }
 void lauflicht(GPIO_Handle_t * LED){
 	// GPIO_WriteToOutputPort((GPIO_RegDef_t *)GPIOD_BASEADDR, 0xFF);
@@ -109,18 +124,23 @@ void lauflichtInit(GPIO_Handle_t * LED){
 	}
 }
 
-//Zeit in Sekunden
-void delay(int time){
-	for(volatile uint32_t i = 0; i<500000*time; i++){
-		if(stopDelay == 1){
-			stopDelay = 0;
-			break;
-		}
-	}
+void TIM6_DAC_IRQHandler(void){
+	state = ((state)%4+1);
+	TIM_IRQHandling(timer5sec.pTIMx);
+}
+
+void TIM7_IRQHandler(void){
+	TIM_StopTimer(&timer7sec);
+	TIM_Reset(&timer5sec);
+	TIM_StartTimer(&timer5sec);
+	TIM_IRQHandling(timer7sec.pTIMx);
+	state = 1;
 }
 
 void EXTI3_IRQHandler(void){
 	state = 0;
-	stopDelay = 1;
 	GPIO_IRQHandling(GPIO_PIN_NO_3);
+	TIM_StopTimer(&timer5sec);
+	TIM_Reset(&timer7sec);
+	TIM_StartTimer(&timer7sec);
 }

@@ -31,6 +31,18 @@ typedef struct
 	GPIO_PinConfig_t GPIO_PinConfig;			/*!< Pin Nummer und Konfiguration >*/
 }GPIO_Handle_t;
 
+typedef struct{
+	uint32_t Mode;
+	uint32_t Period;
+	uint32_t Prescaler;
+}TIMER_Config_t;
+
+typedef struct
+{
+	TIMER_RegDef_t *pTIMx;		/*!< Basisadresse des Timers >*/
+	TIMER_Config_t TIM_Config;  /*!< Timer Konfiguration >*/
+}TIMER_Handle_t;
+
 /*
  * @GPIO_PIN_NUMBERS
  * GPIO pin Nummern
@@ -119,5 +131,13 @@ void GPIO_ToggleOutputPin(GPIO_Handle_t *pGPIO_Handle);
  */
 void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
 void GPIO_IRQHandling(uint8_t PinNumber);
+
+void TIMER_PeriClockControl(TIMER_RegDef_t* pTIMx, uint8_t EnorDi);
+void TIM_Init(TIMER_Handle_t* pTIMHandle);
+void TIM_DeInit(TIMER_Handle_t* pTIMHandle);
+void TIM_Reset(TIMER_Handle_t* pTIMHandle);
+void TIM_StartTimer(TIMER_Handle_t* pTIMHandle);
+void TIM_StopTimer(TIMER_Handle_t* pTIMHandle);
+void TIM_IRQHandling(TIMER_RegDef_t* timer);
 
 #endif /* STM32F407XX_GPIO_DRIVER_H_ */

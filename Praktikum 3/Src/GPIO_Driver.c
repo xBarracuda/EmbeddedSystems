@@ -245,3 +245,73 @@ void GPIO_IRQHandling(uint8_t PinNumber)
 }
 
 // ####################################### ENDE IRQ ###################################################################
+
+void TIMER_PeriClockControl(TIMER_RegDef_t* pTIMx, uint8_t EnorDi){
+	if(EnorDi == ENABLE)
+	{
+		if(pTIMx == TIM6)
+		{
+			TIM6_PCLK_EN();
+		}else if(pTIMx == TIM7){
+			TIM7_PCLK_EN();
+		}
+	}else{
+		if(pTIMx == TIM6)
+		{
+			TIM6_PCLK_DI();
+		}else if(pTIMx == TIM7){
+			TIM7_PCLK_DI();
+		}
+	}
+}
+
+/*
+ * Init and De-init
+ */
+void TIM_Init(TIMER_Handle_t* pTIMHandle){
+    // Anschalten der Clock
+    // Diese Funktion ist in der Lib schon implementiert.
+    // Sie brauchen sie nicht selbst zu implementieren.
+    TIMER_PeriClockControl(pTIMHandle->pTIMx, ENABLE);
+
+    // Ergänzen Sie hier den Code, der nötig ist, um den Timer zu konfigurieren.
+    // D.h:
+    //  - TODO Schwellwert
+    //  - Prescaler
+    //  - IRQ-Aktivierung.
+
+    TIM_Reset(&pTIMHandle);
+    pTIMHandle->pTIMx->ARR = pTIMHandle->TIM_Config.Period;
+    pTIMHandle->pTIMx->PSC = pTIMHandle->TIM_Config.Prescaler;
+    pTIMHandle->pTIMx->DIER = 0x0000 | (pTIMHandle->TIM_Config.Mode << 0);
+
+    if(pTIMHandle->pTIMx == TIM6){
+    	GPIO_IRQInterruptConfig(IRQ_NO_TIM6,ENABLE);
+    }else if(pTIMHandle->pTIMx == TIM7){
+    	GPIO_IRQInterruptConfig(IRQ_NO_TIM7,ENABLE);
+    }
+
+}
+void TIM_DeInit(TIMER_Handle_t* pTIMHandle){
+    TIMER_PeriClockControl(pTIMHandle->pTIMx, DISABLE);
+}
+
+void TIM_Reset(TIMER_Handle_t* pTIMHandle){
+	pTIMHandle->pTIMx->CNT = 0;
+}
+
+//Ergänzen Sie den Code, der nötig ist, um den Timer zu starten.
+void TIM_StartTimer(TIMER_Handle_t* pTIMHandle){
+	pTIMHandle->pTIMx->CR1 |= (1<<0);
+}
+
+//Ergänzen Sie den Code, der nötig ist, um den Timer zu stoppen.
+void TIM_StopTimer(TIMER_Handle_t* pTIMHandle){
+    pTIMHandle->pTIMx->CR1 &= ~(1 << 0);
+}
+
+//ToDo: Ergänzen Sie hier den Code, der für das IRQHandling benötigt wird..
+void TIM_IRQHandling(TIMER_RegDef_t* timer)
+{
+    timer->SR &= ~(1<<0);
+}
