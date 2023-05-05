@@ -20,14 +20,9 @@
 #include "GPIO_Driver.h"
 #include "STM.h"
 #include "main.h"
-uint8_t state = 2;
-uint8_t stopDelay = 0;
 
-void EXTI3_IRQHandler(void){
-	GPIO_IRQHandling(GPIO_PIN_NO_3);
-	state = 0;
-	stopDelay = 1;
-}
+uint8_t state = 1;
+uint8_t stopDelay = 0;
 
 int main(void)
 {
@@ -36,6 +31,9 @@ int main(void)
 	btn.pGPIOx = GPIOD;
 	btn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
 	btn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+	btn.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+	btn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PD;
+	btn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_MEDIUM;
 
 	GPIO_Init(&btn);
 	GPIO_IRQInterruptConfig(IRQ_NO_EXTI3,ENABLE);
@@ -53,15 +51,15 @@ int main(void)
 
 	for(;;){
 		switch(state){
-			case 0: setAmple(ENABLE,DISABLE,DISABLE,ampelLED); delay(2); state =1; break;
+			case 0: state =1; setAmple(ENABLE,DISABLE,DISABLE,ampelLED); delay(2); break;
 
-			case 1: setAmple(ENABLE,DISABLE,DISABLE,ampelLED); state =2; break;
+			case 1: state =2; setAmple(ENABLE,DISABLE,DISABLE,ampelLED); break;
 
-			case 2: setAmple(ENABLE,ENABLE,DISABLE,ampelLED); state =3; break;
+			case 2: state =3; setAmple(ENABLE,ENABLE,DISABLE,ampelLED); break;
 
-			case 3: setAmple(DISABLE,DISABLE,ENABLE,ampelLED); state =4; break;
+			case 3: state =4; setAmple(DISABLE,DISABLE,ENABLE,ampelLED); break;
 
-			case 4: setAmple(DISABLE,ENABLE,DISABLE,ampelLED); state =1; break;
+			case 4: state =1; setAmple(DISABLE,ENABLE,DISABLE,ampelLED); break;
 		}
 	}
 
@@ -119,4 +117,10 @@ void delay(int time){
 			break;
 		}
 	}
+}
+
+void EXTI3_IRQHandler(void){
+	state = 0;
+	stopDelay = 1;
+	GPIO_IRQHandling(GPIO_PIN_NO_3);
 }

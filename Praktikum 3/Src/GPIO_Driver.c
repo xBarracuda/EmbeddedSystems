@@ -115,10 +115,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		 SYSCFG_RegDef_t* syscfg = SYSCFG;
 		 uint8_t bitPosition = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4*4; //Errechnet die Startposition des Blocks im Register. Bei Pin 5 ergibt sich Bit 4, da wir den zweiten Block im Register[4-7] setzen müssen
 		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4] &= ~(0b1111 << bitPosition); //Resetet den Block
-		 uint8_t code = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
-		 uint16_t val = code << bitPosition;
-		 uint8_t index = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4;
-		 syscfg->EXTICR[index] |= val; //Setzt den Block
+		 syscfg->EXTICR[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4] |= GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx) << bitPosition; //Setzt den Block
 
 		 exti->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	 }
@@ -214,7 +211,6 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 	// Hinweis: Bedenken Sie welche ISER und ICER Register des Prozessors in dem verwendeten Mikrocontroller benutzt werden können.
 	// Nicht alle Interrupts sind im Mikrocontroller aktiv. Überprüfen sie dazu das Handbuch (Reference Manual) des Mikrocontrollers.
 	uint32_t* reg;
-	IRQNumber += OFFSET_ISER;
 	uint8_t ISER_Num = IRQNumber / 32;
 	uint8_t bitPosition = IRQNumber % 32;
 
