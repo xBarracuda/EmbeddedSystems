@@ -27,6 +27,10 @@ TIMER_Handle_t timer7sec;
 
 int main(void)
 {
+	//Prescaler = Zeit * Taktfrequenz/Period
+	//Period = Zeit * Taktfrequenz/Prescaler
+	//Taktfrequenz = (Period*Prescaler)/Zeit
+	//Zeit = (Period*Prescaler)/Taktfrequenz
 	timer5sec.pTIMx = TIM6;
 	timer5sec.TIM_Config.Mode = TIM_MODE_IRQ;
 	timer5sec.TIM_Config.Period = 65003;
