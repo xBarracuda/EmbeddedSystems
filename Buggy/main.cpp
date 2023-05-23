@@ -6,11 +6,11 @@
 #include <signal.h>
 #include <iostream>
 #include <wiringPi.h>
-
+using namespace std;
 /// Interrupt Routine for STRG-C
 void signalHandler(int signum)
 {
-    std::cout << "Strg-C Programmende" << std::endl;
+    cout << "Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     exit(signum);
 }
