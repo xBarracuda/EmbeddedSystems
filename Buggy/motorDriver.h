@@ -39,3 +39,15 @@
 
 #define LED_DISABLE_L 0x00
 #define LED_DISABLE_H 0x00
+
+class Motor{
+    private:
+    int pwmPin = 0;
+    int in1Pin = 0;
+    int in2Pin = 0;
+
+    public:
+    Motor(int motorIndex);
+    void setSpeed(float speed);
+    void setCommand(int command);
+};
