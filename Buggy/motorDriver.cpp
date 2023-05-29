@@ -29,3 +29,7 @@ Motor::Motor(int motorIndex){
             break;
     } 
 }
+
+Motor::setCommand(int command){
+    
+}

@@ -6,21 +6,21 @@
 
 #define LED9_Base 0b00101010 
 #define LED9_ON_L  LED9_Base
-#define LED9_ON_H  LED9_Base +1
-#define LED9_OFF_L LED9_Base +2
-#define LED9_OFF_H LED9_Base +3
+#define LED9_ON_H  LED9_Base + 1
+#define LED9_OFF_L LED9_Base + 2
+#define LED9_OFF_H LED9_Base + 3
 
 #define LED10_Base 0b00101110 
 #define LED10_ON_L  LED10_Base
-#define LED10_ON_H  LED10_Base +1
-#define LED10_OFF_L LED10_Base +2
-#define LED10_OFF_H LED10_Base +3
+#define LED10_ON_H  LED10_Base + 1
+#define LED10_OFF_L LED10_Base + 2
+#define LED10_OFF_H LED10_Base + 3
 
 #define LED11_Base 0b00110010 
 #define LED11_ON_L  LED11_Base
-#define LED11_ON_H  LED11_Base +1
-#define LED11_OFF_L LED11_Base +2
-#define LED11_OFF_H LED11_Base +3
+#define LED11_ON_H  LED11_Base + 1
+#define LED11_OFF_L LED11_Base + 2
+#define LED11_OFF_H LED11_Base + 3
 
 #define LED12_Base 0b00110110
 #define LED12_ON_L  LED12_Base
