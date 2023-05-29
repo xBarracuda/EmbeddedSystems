@@ -30,6 +30,55 @@ Motor::Motor(int motorIndex){
     } 
 }
 
-Motor::setCommand(int command){
-    
+void Motor::setCommand(int command){
+    switch (command)
+    {
+        case FORWARD:
+            setLEDPin(in1Pin, LED_ENABLE, LED_DISABLE);
+            setLEDPin(in2Pin, LED_DISABLE, LED_ENABLE);
+            break;
+        case BACKWARD:
+            setLEDPin(in1Pin, LED_DISABLE, LED_ENABLE);
+            setLEDPin(in2Pin, LED_ENABLE, LED_DISABLE);
+            break;
+        case BREAK:
+            setLEDPin(in1Pin, LED_ENABLE, LED_DISABLE);
+            setLEDPin(in2Pin, LED_ENABLE, LED_DISABLE);
+            break;
+        case RELEASE:
+            setLEDPin(in1Pin, LED_DISABLE, LED_ENABLE);
+            setLEDPin(in2Pin, LED_DISABLE, LED_ENABLE);
+            break;
+        default:
+            break;
+    }
+}
+
+void Motor::setSpeed(float speed){
+    int value = (int)(speed * 40.96);
+    setLEDPin(pwmPin,0,value);
+}
+
+void setLEDPin(int number, int valueOn, int valueOff){
+    bcm2835_i2c_begin();
+    bcm2835_i2c_setSlaveAddress(0x60);
+    char * buffer[2];
+
+    buffer[0] = LED_Base + 4*(number);
+    buffer[1] = valueOn;
+    bcm2835_i2c_write(buffer, 2);
+
+    buffer[0] = LED_Base + 4*(number)+1;
+    buffer[1] = valueOn >> 8;
+    bcm2835_i2c_write(buffer, 2);
+
+    buffer[0] = LED_Base + 4*(number)+2;
+    buffer[1] = valueOff;
+    bcm2835_i2c_write(buffer, 2);
+
+    buffer[0] = LED_Base + 4*(number)+3;
+    buffer[1] = valueOff >> 8;
+    bcm2835_i2c_write(buffer, 2);
+
+    bcm2835_i2c_end();
 }
