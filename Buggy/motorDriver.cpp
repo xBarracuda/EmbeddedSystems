@@ -74,7 +74,7 @@ void setLEDPin(int number, int valueOn, int valueOff){
     }
     
     bcm2835_i2c_setSlaveAddress(0x60);
-    bcm2835_i2c_setClockDivider(1000);
+    bcm2835_i2c_setClockDivider(10000);
 
     
     char buffer[2];
