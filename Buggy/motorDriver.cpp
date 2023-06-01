@@ -67,9 +67,15 @@ void setLEDPin(int number, int valueOn, int valueOff){
     std::cout << "valueon: " << valueOn   << std::endl;
 
     std::cout << "valueoff: " << valueOff << std::endl;
-    bcm2835_i2c_begin();
+    if (!bcm2835_i2c_begin())
+    {
+        std::cout << "begin failed";
+        return 1;
+    }
     
     bcm2835_i2c_setSlaveAddress(0x60);
+    bcm2835_i2c_setClockDivider(1000);
+
     
     char buffer[2];
 

@@ -12,7 +12,7 @@ using namespace std;
 /// Interrupt Routine for STRG-C
 void signalHandler(int signum)
 {
-    cout << "Strg-C Programmende" << endl;
+    cout << "\n Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     bcm2835_close();
     exit(signum);
