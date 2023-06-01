@@ -26,7 +26,7 @@ Motor::Motor(int motorIndex){
             in1Pin = 5;
             break;
         default:
-            std::out("Motor index out-of-range. Must be between 0 and 3.");
+            
             break;
     } 
 }
@@ -63,22 +63,22 @@ void Motor::setSpeed(float speed){
 void setLEDPin(int number, int valueOn, int valueOff){
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x60);
-    char * buffer[2];
+    char buffer[2];
 
-    buffer[0] = LED_Base + 4*(number);
-    buffer[1] = valueOn;
+    buffer[0] = (char)(LED_Base + 4*(number));
+    buffer[1] = (char)valueOn;
     bcm2835_i2c_write(buffer, 2);
 
-    buffer[0] = LED_Base + 4*(number)+1;
-    buffer[1] = valueOn >> 8;
+    buffer[0] = (char)(LED_Base + 4*(number)+1);
+    buffer[1] = (char)(valueOn >> 8);
     bcm2835_i2c_write(buffer, 2);
 
-    buffer[0] = LED_Base + 4*(number)+2;
-    buffer[1] = valueOff;
+    buffer[0] = (char)(LED_Base + 4*(number)+2);
+    buffer[1] = (char)valueOff;
     bcm2835_i2c_write(buffer, 2);
 
-    buffer[0] = LED_Base + 4*(number)+3;
-    buffer[1] = valueOff >> 8;
+    buffer[0] = (char)(LED_Base + 4*(number)+3);
+    buffer[1] = (char)(valueOff >> 8);
     bcm2835_i2c_write(buffer, 2);
 
     bcm2835_i2c_end();
