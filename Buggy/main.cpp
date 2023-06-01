@@ -17,12 +17,16 @@ void signalHandler(int signum)
 
 int main()
 {
+    std::cout << "start\n";
     Motor newMotor(0);
+    std::cout << "new motor\n";
     Motor newMotor1(1);
     Motor newMotor2(2);
     Motor newMotor3(3);
+    std::cout << "all motors\n";
 
     newMotor.setCommand(FORWARD);
+    std::cout << "first commdn\n";
     newMotor1.setCommand(BACKWARD);
     newMotor2.setCommand(BREAK);
     newMotor3.setCommand(RELEASE);
