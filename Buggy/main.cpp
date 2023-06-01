@@ -17,6 +17,9 @@ void signalHandler(int signum)
 
 int main()
 {
+    if (!bcm2835_init())
+        return 1;
+
     std::cout << "start\n";
     Motor newMotor(0);
     std::cout << "new motor\n";
