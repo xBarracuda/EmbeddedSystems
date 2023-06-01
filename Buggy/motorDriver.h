@@ -48,7 +48,7 @@
 #define BREAK 2
 #define RELEASE 3
 
-void setLEDPin(int number, int value, bool on);
+void setLEDPin(int number, int valueOn, int valueOff);
 
 class Motor{
     private:
