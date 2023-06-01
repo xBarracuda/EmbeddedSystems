@@ -61,7 +61,9 @@ void Motor::setSpeed(float speed){
 }
 
 void setLEDPin(int number, int valueOn, int valueOff){
+    std::cout << "i2cbegin\n";
     bcm2835_i2c_begin();
+    std::cout << "i2cslaveadress\n";
     bcm2835_i2c_setSlaveAddress(0x60);
     std::cout << "Hier0\n";
     char buffer[2];
