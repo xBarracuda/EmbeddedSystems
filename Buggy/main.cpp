@@ -5,7 +5,7 @@
 /// Includes
 #include <signal.h>
 #include <iostream>
-#include <wiringPi.h>
+#include "motorDriver.h"
 using namespace std;
 /// Interrupt Routine for STRG-C
 void signalHandler(int signum)
@@ -17,13 +17,15 @@ void signalHandler(int signum)
 
 int main()
 {
-    wiringPiSetup () ;
-    pinMode (0, OUTPUT) ;
-    for (;;)
-    {
-        digitalWrite (0, HIGH) ; delay (500) ;
-        digitalWrite (0,  LOW) ; delay (500) ;
-    }
+    Motor newMotor(0);
+    Motor newMotor1(1);
+    Motor newMotor2(2);
+    Motor newMotor3(3);
+
+    newMotor.setCommand(FORWARD);
+    newMotor1.setCommand(BACKWARD);
+    newMotor2.setCommand(BREAK);
+    newMotor3.setCommand(RELEASE);
     // Csignal für Abbruch über STRG-C
     signal(SIGINT, signalHandler);
 
