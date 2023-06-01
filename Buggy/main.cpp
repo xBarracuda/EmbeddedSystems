@@ -22,19 +22,20 @@ int main()
     if (!bcm2835_init())
         return 1;
 
-    std::cout << "start\n";
     Motor newMotor(0);
-    std::cout << "new motor\n";
     Motor newMotor1(1);
     Motor newMotor2(2);
     Motor newMotor3(3);
-    std::cout << "all motors\n";
 
     newMotor.setCommand(FORWARD);
-    std::cout << "first commdn\n";
     newMotor1.setCommand(BACKWARD);
     newMotor2.setCommand(BREAK);
     newMotor3.setCommand(RELEASE);
+
+    newMotor.setSpeed(50);
+    newMotor1.setSpeed(50);
+    newMotor2.setSpeed(50);
+    newMotor3.setSpeed(50);
     // Csignal für Abbruch über STRG-C
     signal(SIGINT, signalHandler);
 
