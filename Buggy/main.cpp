@@ -14,6 +14,7 @@ void signalHandler(int signum)
 {
     cout << "Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
+    bcm2835_close();
     exit(signum);
 }
 
@@ -36,9 +37,9 @@ int main()
     newMotor1.setSpeed(50);
     newMotor2.setSpeed(50);
     newMotor3.setSpeed(50);
-    for (;;);
+    bcm2835_close();
     // Csignal für Abbruch über STRG-C
     signal(SIGINT, signalHandler);
-
+for (;;);
     return 0;
 }
