@@ -36,6 +36,7 @@ int main()
     newMotor1.setSpeed(50);
     newMotor2.setSpeed(50);
     newMotor3.setSpeed(50);
+    for (;;);
     // Csignal für Abbruch über STRG-C
     signal(SIGINT, signalHandler);
 
