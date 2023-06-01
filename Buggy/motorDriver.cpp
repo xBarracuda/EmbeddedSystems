@@ -70,7 +70,7 @@ void setLEDPin(int number, int valueOn, int valueOff){
     if (!bcm2835_i2c_begin())
     {
         std::cout << "begin failed";
-        return 1;
+       
     }
     
     bcm2835_i2c_setSlaveAddress(0x60);
