@@ -1,4 +1,5 @@
 #include "motorDriver.h"
+#include <bcm2835.h>
 #include <iostream>
 
 Motor::Motor(int motorIndex){
