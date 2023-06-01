@@ -28,9 +28,9 @@ int main()
     Motor newMotor3(3);
 
     newMotor.setCommand(FORWARD);
-    newMotor1.setCommand(BACKWARD);
-    newMotor2.setCommand(BREAK);
-    newMotor3.setCommand(RELEASE);
+    newMotor1.setCommand(FORWARD);
+    newMotor2.setCommand(FORWARD);
+    newMotor3.setCommand(FORWARD);
 
     newMotor.setSpeed(50);
     newMotor1.setSpeed(50);
