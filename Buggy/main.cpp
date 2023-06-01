@@ -5,6 +5,8 @@
 /// Includes
 #include <signal.h>
 #include <iostream>
+#include <bcm2835.h>
+
 #include "motorDriver.h"
 using namespace std;
 /// Interrupt Routine for STRG-C
