@@ -1,6 +1,7 @@
 #include "motorDriver.h"
 #include <bcm2835.h>
 #include <iostream>
+#include <iomanip>
 
 Motor::Motor(int motorIndex){
    switch (motorIndex)
@@ -74,26 +75,26 @@ void setLEDPin(int number, int valueOn, int valueOff){
 
     buffer[0] = (char)(LED_Base + 4*(number));
     buffer[1] = (char)valueOn;
-    std::cout << "Buffer 0: " << buffer[0] << std::endl;
-    std::cout << "Buffer 1: " << buffer[1] << std::endl;
+    std::cout << "Buffer 0: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[0])<< std::endl;
+    std::cout << "Buffer 1: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[1]) << std::endl;
     bcm2835_i2c_write(buffer, 2);
     
     buffer[0] = (char)(LED_Base + 4*(number)+1);
     buffer[1] = (char)(valueOn >> 8);
-    std::cout << "Buffer 0: " << buffer[0] << std::endl;
-    std::cout << "Buffer 1: " << buffer[1] << std::endl;
+    std::cout << "Buffer 0: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[0]) << std::endl;
+    std::cout << "Buffer 1: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[1]) << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     buffer[0] = (char)(LED_Base + 4*(number)+2);
     buffer[1] = (char)valueOff;
-    std::cout << "Buffer 0: " << buffer[0] << std::endl;
-    std::cout << "Buffer 1: " << buffer[1] << std::endl;
+    std::cout << "Buffer 0: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[0]) << std::endl;
+    std::cout << "Buffer 1: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[1]) << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     buffer[0] = (char)(LED_Base + 4*(number)+3);
     buffer[1] = (char)(valueOff >> 8);
-    std::cout << "Buffer 0: " << buffer[0] << std::endl;
-    std::cout << "Buffer 1: " << buffer[1] << std::endl;
+    std::cout << "Buffer 0: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[0]) << std::endl;
+    std::cout << "Buffer 1: " << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(buffer[1]) << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     bcm2835_i2c_end();
