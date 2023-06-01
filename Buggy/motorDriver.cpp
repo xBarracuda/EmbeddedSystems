@@ -61,31 +61,39 @@ void Motor::setSpeed(float speed){
 }
 
 void setLEDPin(int number, int valueOn, int valueOff){
-   
+
+    std::cout << "number: " << number << std::endl;
+    std::cout << "valueon: " << valueOn   << std::endl;
+
+    std::cout << "valueoff: " << valueOff << std::endl;
     bcm2835_i2c_begin();
     
     bcm2835_i2c_setSlaveAddress(0x60);
     
     char buffer[2];
 
-    
-
     buffer[0] = (char)(LED_Base + 4*(number));
-    
     buffer[1] = (char)valueOn;
-    
+    std::cout << "Buffer 0: " << buffer[0] << std::endl;
+    std::cout << "Buffer 1: " << buffer[1] << std::endl;
     bcm2835_i2c_write(buffer, 2);
     
     buffer[0] = (char)(LED_Base + 4*(number)+1);
     buffer[1] = (char)(valueOn >> 8);
+    std::cout << "Buffer 0: " << buffer[0] << std::endl;
+    std::cout << "Buffer 1: " << buffer[1] << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     buffer[0] = (char)(LED_Base + 4*(number)+2);
     buffer[1] = (char)valueOff;
+    std::cout << "Buffer 0: " << buffer[0] << std::endl;
+    std::cout << "Buffer 1: " << buffer[1] << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     buffer[0] = (char)(LED_Base + 4*(number)+3);
     buffer[1] = (char)(valueOff >> 8);
+    std::cout << "Buffer 0: " << buffer[0] << std::endl;
+    std::cout << "Buffer 1: " << buffer[1] << std::endl;
     bcm2835_i2c_write(buffer, 2);
 
     bcm2835_i2c_end();
