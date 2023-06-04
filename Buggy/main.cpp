@@ -44,8 +44,8 @@ int main()
     Gyro gyro;
     gyro.initializeGyro();
     while (true) {
-        std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) << endl;
-        std::cout << "yAxis: " << std::dec << gyro.readGyroAxis(yAxis) << endl;
+        //std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) << endl;
+        //std::cout << "yAxis: " << std::dec << gyro.readGyroAxis(yAxis) << endl;
         std::cout << "zAxis: " << std::dec << gyro.readGyroAxis(zAxis) << endl;
     }
 
