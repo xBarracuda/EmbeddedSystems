@@ -38,18 +38,18 @@ void Gyro::initializeGyro()
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
 
-    short x;
-    short y;
-    short z;
-    for (int i = 0; i < 50; i++)
+    int x;
+    int y;
+    int z;
+    for (int i = 0; i < 500; i++)
     {
-        x += readGyroAxis(xAxis);
-        y += readGyroAxis(yAxis);
-        z += readGyroAxis(zAxis);
+        x += (int)readGyroAxis(xAxis);
+        y += (int)readGyroAxis(yAxis);
+        z += (int)readGyroAxis(zAxis);
     }
-    x_offset = x/50;
-    y_offset = y/50;
-    z_offset = z/50;
+    x_offset = (short)(x/500);
+    y_offset = (short)(y/500);
+    z_offset = (short)(z/500);
     
 
     bcm2835_i2c_end();
