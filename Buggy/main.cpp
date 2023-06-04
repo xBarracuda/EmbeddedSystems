@@ -9,6 +9,8 @@
 
 #include "gyroDriver.h"
 #include "motorDriver.h"
+#include <unistd.h>
+
 using namespace std;
 /// Interrupt Routine for STRG-C
 void signalHandler(int signum)
@@ -42,6 +44,7 @@ int main()
     newMotor3.setSpeed(50);
 
     Gyro gyro;
+    _sleep(1000);
     gyro.initializeGyro();
     while (true) {
         //std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) << endl;
