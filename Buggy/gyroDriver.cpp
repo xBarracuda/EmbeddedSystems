@@ -43,7 +43,7 @@ void Gyro::initializeGyro()
     // Konfiguration des Beschleunigungsmessers
     //buffer[0] = 0x1C; // Beschleunigungsmesser-Konfigurationsregister
     //buffer[1] = 0x08; // ±4g Messbereich
-    bcm2835_i2c_write(buffer, 2);
+    //bcm2835_i2c_write(buffer, 2);
 
     bcm2835_i2c_end();
 
