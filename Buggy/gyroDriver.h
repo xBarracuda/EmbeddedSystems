@@ -6,6 +6,14 @@
 
 class Gyro {
 public: 
-	int readGyroAxis(int axis);
+	int16_t readGyroAxis(int axis);
 	void initializeGyro();
+	int16_t read16bitRegister(int adress);
+	//Buffer readAxis();
+};
+
+struct Buffer {
+	int16_t xAchse;
+	int16_t yAchse;
+	int16_t zAchse;
 };
