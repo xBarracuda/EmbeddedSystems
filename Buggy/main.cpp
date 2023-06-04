@@ -20,7 +20,9 @@ void signalHandler(int signum)
 }
 
 int main()
-{
+{    
+    signal(SIGINT, signalHandler);
+
     if (!bcm2835_init())
         return 1;
 
@@ -40,14 +42,14 @@ int main()
     newMotor3.setSpeed(50);
 
     Gyro gyro;
-    std::cout << "xAxis: " << gyro.readGyroAxis(xAxis);
-    std::cout << "yAxis: " << gyro.readGyroAxis(yAxis);
-    std::cout << "zAxis: " << gyro.readGyroAxis(zAxis);
-
+    while (true) {
+        std::cout << "xAxis: " << gyro.readGyroAxis(xAxis) << endl;
+        std::cout << "yAxis: " << gyro.readGyroAxis(yAxis) << endl;
+        std::cout << "zAxis: " << gyro.readGyroAxis(zAxis) << endl;
+    }
 
     bcm2835_close();
     // Csignal für Abbruch über STRG-C
-    signal(SIGINT, signalHandler);
     for (;;);
     return 0;
 }
