@@ -51,7 +51,7 @@ void Gyro::initializeGyro()
     y_offset = (short)(y/500);
     z_offset = (short)(z/500);
     
-    std::cout << "x: " << x_offset << ", y: " << y_offset << ", z: " << z_offset << std::endl;
+    std::cout << "x: " << std::dec << x_offset << ", y: " << std::dec << y_offset << ", z: " << std::dec << z_offset << std::endl;
 
     bcm2835_i2c_end();
 
