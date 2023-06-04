@@ -2,9 +2,9 @@
 #include <iostream>
 #include <bcm2835.h>
 
-int16_t Gyro::readGyroAxis(int axis){
+short Gyro::readGyroAxis(int axis){
     //Gyroscope Measurements 
-    int16_t value = read16bitRegister(gyroAxisAddr + axis * 2);
+    short value = read16bitRegister(gyroAxisAddr + axis * 2);
     
     return value;
 }
@@ -32,7 +32,7 @@ void Gyro::initializeGyro()
 
 }
 
-int16_t Gyro::read16bitRegister(int adress)
+short Gyro::read16bitRegister(int adress)
 {
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
@@ -43,13 +43,13 @@ int16_t Gyro::read16bitRegister(int adress)
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
 
-    int16_t value = (int16_t)(buffer[0] << 8);
+    short value = (short)(buffer[0] << 8);
     buffer[0] = (char)(adress + 1);
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
 
-    value |= (int16_t)(buffer[0]);
+    value |= (short)(buffer[0]);
 
     return value;
 
