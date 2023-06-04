@@ -12,13 +12,13 @@ int Gyro::readGyroAxis(int axis){
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
 
-    int value = (int)(buffer[0] << 8);
+    int16_t value = (int16_t)(buffer[0] << 8);
     buffer[0] = (char)(gyroAxisAddr + axis*2 + 1);
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
 
-    value |=  (int)(buffer[0]);
+    value |=  (int16_t)(buffer[0]);
     
     return value;
 }
@@ -40,10 +40,7 @@ void Gyro::initializeGyro()
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
 
-    // Konfiguration des Beschleunigungsmessers
-    //buffer[0] = 0x1C; // Beschleunigungsmesser-Konfigurationsregister
-    //buffer[1] = 0x08; // ±4g Messbereich
-    //bcm2835_i2c_write(buffer, 2);
+    
 
     bcm2835_i2c_end();
 
