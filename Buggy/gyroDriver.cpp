@@ -39,7 +39,7 @@ short Gyro::read16bitRegister(int adress)
    // bcm2835_i2c_setClockDivider(10000);
 
     char buffer[1];
-    buffer[0] = (char)adress
+    buffer[0] = (char)adress;
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
 
