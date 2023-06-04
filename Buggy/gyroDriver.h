@@ -5,6 +5,10 @@
 #define gyroAxisAddr 0x43
 
 class Gyro {
+private:
+	short x_offset;
+	short y_offset;
+	short z_offset;
 public: 
 	short readGyroAxis(int axis);
 	void initializeGyro();

@@ -5,6 +5,18 @@
 short Gyro::readGyroAxis(int axis){
     //Gyroscope Measurements 
     short value = read16bitRegister(gyroAxisAddr + axis * 2);
+
+    switch (axis)
+    {
+    case 0:
+        value -= x_offset; break;
+    case 1:
+        value -= y_offset; break;
+    case 2:
+        value -= z_offset; break;
+    default:
+        break;
+    }
     
     return value;
 }
@@ -26,6 +38,16 @@ void Gyro::initializeGyro()
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
 
+
+    for (int i = 0; i < 50; i++)
+    {
+        x_offset += readGyroAxis(xAxis);
+        y_offset += readGyroAxis(yAxis);
+        z_offset += readGyroAxis(zAxis);
+    }
+    x_offset /= 50;
+    y_offset /= 50;
+    z_offset /= 50;
     
 
     bcm2835_i2c_end();
