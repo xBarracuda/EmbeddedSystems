@@ -12,8 +12,8 @@ public:
 	//Buffer readAxis();
 };
 
-struct Buffer {
-	int16_t xAchse;
-	int16_t yAchse;
-	int16_t zAchse;
-};
+//struct Buffer {
+//	int16_t xAchse;
+//	int16_t yAchse;
+//	int16_t zAchse;
+//};
