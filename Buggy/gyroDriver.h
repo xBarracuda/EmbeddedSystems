@@ -7,4 +7,5 @@
 class Gyro {
 public: 
 	int readGyroAxis(int axis);
+	void initializeGyro();
 };
