@@ -1,4 +1,5 @@
 #include "gyroDriver.h"
+#include <iostream>
 #include <bcm2835.h>
 
 int Gyro::readGyroAxis(int axis){
@@ -18,5 +19,6 @@ int Gyro::readGyroAxis(int axis){
     bcm2835_i2c_end();
 
     value |=  buffer[0];
+    std::cout << value;
     return value
 }

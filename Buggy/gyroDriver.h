@@ -2,8 +2,9 @@
 #define yAxis 1
 #define zAxis 2
 
-#define gyroAxisAddr 0x68
+#define gyroAxisAddr 0x43
 
 class Gyro {
-    int readGyroAxis(int axis);
+public: 
+	int readGyroAxis(int axis);
 };

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <bcm2835.h>
 
+#include "gyroDriver.h"
 #include "motorDriver.h"
 using namespace std;
 /// Interrupt Routine for STRG-C
@@ -37,9 +38,16 @@ int main()
     newMotor1.setSpeed(50);
     newMotor2.setSpeed(50);
     newMotor3.setSpeed(50);
+
+    Gyro gyro;
+    gyro.readGyroAxis(xAxis);
+    gyro.readGyroAxis(yAxis);
+    gyro.readGyroAxis(zAxis);
+
+
     bcm2835_close();
     // Csignal für Abbruch über STRG-C
     signal(SIGINT, signalHandler);
-for (;;);
+    for (;;);
     return 0;
 }
