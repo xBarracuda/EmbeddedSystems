@@ -42,6 +42,7 @@ int main()
     newMotor3.setSpeed(50);
 
     Gyro gyro;
+    gyro.initializeGyro();
     while (true) {
         std::cout << "xAxis: " << gyro.readGyroAxis(xAxis) << endl;
         std::cout << "yAxis: " << gyro.readGyroAxis(yAxis) << endl;

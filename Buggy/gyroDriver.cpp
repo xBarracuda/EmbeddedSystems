@@ -22,3 +22,29 @@ int Gyro::readGyroAxis(int axis){
     
     return value;
 }
+
+void Gyro::initializeGyro()
+{
+    bcm2835_i2c_begin();
+    bcm2835_i2c_setSlaveAddress(0x68);
+    bcm2835_i2c_setClockDivider(10000);
+
+    // Power Management
+    char buffer[2];
+    buffer[0] = 0x6B; // Power Management Register
+    buffer[1] = 0x00; // Aktiviere das Gyroskop (Wakeup)
+    bcm2835_i2c_write(buffer, 2);
+
+    // Konfiguration des Gyroskops
+    buffer[0] = 0x1B; // Gyroskop-Konfigurationsregister
+    buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
+    bcm2835_i2c_write(buffer, 2);
+
+    // Konfiguration des Beschleunigungsmessers
+    buffer[0] = 0x1C; // Beschleunigungsmesser-Konfigurationsregister
+    buffer[1] = 0x08; // ±4g Messbereich
+    bcm2835_i2c_write(buffer, 2);
+
+    bcm2835_i2c_end();
+
+}
