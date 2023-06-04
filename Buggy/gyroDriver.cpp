@@ -21,6 +21,6 @@ int Gyro::readGyroAxis(int axis){
 
     value |=  (int)(buffer[0]);
     std::cout << "low-bit set\n";
-    std::cout << value;
+    
     return value;
 }

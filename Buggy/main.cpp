@@ -40,9 +40,9 @@ int main()
     newMotor3.setSpeed(50);
 
     Gyro gyro;
-    gyro.readGyroAxis(xAxis);
-    gyro.readGyroAxis(yAxis);
-    gyro.readGyroAxis(zAxis);
+    std::cout << "xAxis: " << gyro.readGyroAxis(xAxis);
+    std::cout << "yAxis: " << gyro.readGyroAxis(yAxis);
+    std::cout << "zAxis: " << gyro.readGyroAxis(zAxis);
 
 
     bcm2835_close();
