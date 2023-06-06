@@ -22,7 +22,7 @@ int UltraSchall::getDistance()
 	}
 	begin = std::chrono::steady_clock::now();
 
-	while (bcm2835_gpio_read(Echo) > 0) {
+	while (bcm2835_gpio_lev(Echo) > 0) {
 
 	}
 
