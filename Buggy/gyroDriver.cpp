@@ -8,7 +8,7 @@ float Gyro::readGyroAxis(int axis){
     //Gyroscope Measurements 
     short value = read16bitRegister(gyroAxisAddr + axis * 2);
 
-    /*switch (axis)
+    switch (axis)
     {
     case 0:
         value -= x_offset; break;
@@ -18,7 +18,7 @@ float Gyro::readGyroAxis(int axis){
         value -= z_offset; break;
     default:
         break;
-    }*/
+    }
     if (value >= 0) {
         return value * BitToDegree;
     }
@@ -43,7 +43,7 @@ void Gyro::initializeGyro()
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
 
-   /* int x, y, z;
+    int x, y, z;
     for (int i = 0; i < KalibirierungsIteration; i++)
     {
         x += (int)read16bitRegister(gyroAxisAddr + xAxis * 2);
@@ -54,7 +54,7 @@ void Gyro::initializeGyro()
     y_offset = (short)(y/KalibirierungsIteration);
     z_offset = (short)(z/KalibirierungsIteration);
     
-    std::cout << "x: " << std::dec << x_offset << ", y: " << std::dec << y_offset << ", z: " << std::dec << z_offset << std::endl;*/
+    std::cout << "x: " << std::dec << x_offset << ", y: " << std::dec << y_offset << ", z: " << std::dec << z_offset << std::endl;
 
     bcm2835_i2c_end();
 
