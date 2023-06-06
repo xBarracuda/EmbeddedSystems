@@ -8,7 +8,6 @@
 #include <bcm2835.h>
 
 #include "gyroDriver.h"
-#include "motorDriver.h"
 
 using namespace std;
 /// Interrupt Routine for STRG-C
@@ -27,7 +26,7 @@ int main()
     if (!bcm2835_init())
         return 1;
 
-    Motor newMotor(0);
+    /*Motor newMotor(0);
     Motor newMotor1(1);
     Motor newMotor2(2);
     Motor newMotor3(3);
@@ -40,7 +39,7 @@ int main()
     newMotor.setSpeed(50);
     newMotor1.setSpeed(50);
     newMotor2.setSpeed(50);
-    newMotor3.setSpeed(50);
+    newMotor3.setSpeed(50);*/
 
     Gyro gyro;
     gyro.initializeGyro();
