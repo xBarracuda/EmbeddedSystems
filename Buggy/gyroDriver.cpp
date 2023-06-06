@@ -91,14 +91,17 @@ void Gyro::startMeasurement()
     {
         this->relativeAngle[i] = 0;
     }
+    std::cout << "vor dem Thread!\n";
     std::thread updateThread(&Gyro::updateMeasurement, this);
-    
+    std::cout << "nach dem Thread!\n";
 }
 
 void Gyro::updateMeasurement()
 {
+    std::cout << "während des Threads\n";
     float GradProSekunde[3];
     while (isMeasuring) {
+        std::cout << "während der While im Thread!\n";
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
         GradProSekunde[0] = readGyroAxis(xAxis);
         GradProSekunde[1] = readGyroAxis(yAxis);
