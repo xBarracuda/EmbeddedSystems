@@ -4,20 +4,25 @@
 
 #define gyroAxisAddr 0x43
 
+#define KalibirierungsIteration 5000
+#define BitToDegree 0.0152592f
+#define BitToDegreeNegative 0.0152587f
+
 class Gyro {
 private:
 	short x_offset;
 	short y_offset;
 	short z_offset;
+	float relativeAngle[3];
+	bool isMeasuring;
+
 public: 
-	short readGyroAxis(int axis);
+	float readGyroAxis(int axis);
 	void initializeGyro();
 	short read16bitRegister(int adress);
-	//Buffer readAxis();
+	void startMeasurement();
+	void updateMeasurement();
+	void endMeasurement();
+	float getRelativeAngle(int axis);
 };
 
-//struct Buffer {
-//	int16_t xAchse;
-//	int16_t yAchse;
-//	int16_t zAchse;
-//};
