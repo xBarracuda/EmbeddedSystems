@@ -97,18 +97,27 @@ void Gyro::startMeasurement()
 
 void Gyro::updateMeasurement()
 {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    bool firstMeasurment = true;
     float GradProSekunde[3];
     while (isMeasuring) {
-        std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+        std::chrono::steady_clock::time_point oldbegin = begin;
         GradProSekunde[0] = readGyroAxis(xAxis);
         GradProSekunde[1] = readGyroAxis(yAxis);
         GradProSekunde[2] = readGyroAxis(zAxis);
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        float duration = (float)(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
-        for (int i = 0; i < 3; i++)
-        {
-            relativeAngle[i] += GradProSekunde[i] * (duration * 1e-6f);
+        begin = std::chrono::steady_clock::now();
+        float duration = (float)(std::chrono::duration_cast<std::chrono::microseconds>(end - oldbegin).count());
+        if (!firstMeasurment) {
+            for (int i = 0; i < 3; i++)
+            {
+                relativeAngle[i] += GradProSekunde[i] * (duration * 1e-6f);
 
+            }
+        }
+        else {
+            firstMeasurment = false;
         }
     }
 }
