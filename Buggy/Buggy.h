@@ -10,9 +10,10 @@ class Buggy{
     UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
-    void setMotors(int leftSpeed, int rightSpeed);
+    
 
     public:
+    void setMotors(int leftSpeed, int rightSpeed);
     Buggy(int motorLeft, int motorRight);
     void drive(float speed);
     void curve(float speed, float angle, float curveSpeed);

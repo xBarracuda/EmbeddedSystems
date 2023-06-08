@@ -50,13 +50,13 @@ int main()
     }
     
     */
-    buggy.drive(100);
+    //buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;
-    bcm2835_delay(1000);
-    std::cout << "Starte Kurve" << std::endl;
-    buggy.curve(100,90,100);
-    std::cout << "Kurve fertig" << std::endl;
-    
+    //bcm2835_delay(1000);
+    //std::cout << "Starte Kurve" << std::endl;
+    //buggy.curve(100,90,100);
+    //std::cout << "Kurve fertig" << std::endl;
+    buggy.setMotors(100, 100);
     // Csignal für Abbruch über STRG-C
     for (;;);
     return 0;
