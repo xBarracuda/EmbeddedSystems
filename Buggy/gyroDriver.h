@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 
 #define xAxis 0
 #define yAxis 1
@@ -17,9 +18,11 @@ private:
 	short z_offset;
 	float relativeAngle[3];
 	bool isMeasuring;
+	std::mutex *i2c_mutex;
 
 public: 
 	Gyro();
+	Gyro(std::mutex *i2c_mutex);
 	float readGyroAxis(int axis);
 	void initializeGyro();
 	short read16bitRegister(int adress);

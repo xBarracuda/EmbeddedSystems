@@ -4,7 +4,9 @@
 #include <chrono>
 #include <thread>
 
-Gyro::Gyro()
+Gyro::Gyro() {}
+
+Gyro::Gyro(std::mutex *i2c_mutex)
 {
     initializeGyro();
 }
@@ -34,6 +36,7 @@ float Gyro::readGyroAxis(int axis){
 
 void Gyro::initializeGyro()
 {
+    i2c_mutex->lock();
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
 
@@ -55,18 +58,19 @@ void Gyro::initializeGyro()
         y += (int)read16bitRegister(gyroAxisAddr + yAxis * 2);
         z += (int)read16bitRegister(gyroAxisAddr + zAxis * 2);
     }
+
+    bcm2835_i2c_end();
+    i2c_mutex->unlock();
     x_offset = (short)(x/KalibirierungsIteration);
     y_offset = (short)(y/KalibirierungsIteration);
     z_offset = (short)(z/KalibirierungsIteration);
+
     
-    std::cout << "x: " << std::dec << x_offset << ", y: " << std::dec << y_offset << ", z: " << std::dec << z_offset << std::endl;
-
-    bcm2835_i2c_end();
-
 }
 
 short Gyro::read16bitRegister(int adress)
 {
+    i2c_mutex->lock();
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
    // bcm2835_i2c_setClockDivider(10000);
@@ -82,7 +86,7 @@ short Gyro::read16bitRegister(int adress)
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
-
+    i2c_mutex->unlock();
     value |= (short)(buffer[0]);
 
     return value;

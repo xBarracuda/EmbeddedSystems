@@ -12,13 +12,14 @@
 #include "UltraSchallDriver.h"
 
 using namespace std;
+Buggy buggy;
 
 /// Interrupt Routine for STRG-C
 void signalHandler(int signum)
 {
     cout << "\n Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
-    releaseMotors();
+    buggy.releaseMotors();
     bcm2835_close();
     exit(signum);
 }
@@ -29,7 +30,7 @@ int main()
     if (!bcm2835_init())
         return 1;
 
-    Buggy buggy(1, 4);
+    buggy.init(1, 4);
     //buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;
     //bcm2835_delay(1000);
