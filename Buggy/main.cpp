@@ -8,6 +8,7 @@
 #include <bcm2835.h>
 
 #include "gyroDriver.h"
+#include "UltraSchallDriver.h"
 
 using namespace std;
 /// Interrupt Routine for STRG-C
@@ -40,7 +41,7 @@ int main()
     newMotor1.setSpeed(50);
     newMotor2.setSpeed(50);
     newMotor3.setSpeed(50);*/
-
+    /*
     Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
@@ -49,8 +50,12 @@ int main()
         //std::cout << "yAxis: " << std::dec << gyro.readGyroAxis(yAxis) << endl;
         std::cout << "zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }
-    
-    bcm2835_close();
+    */
+    UltraSchall ultraSchall(18,27);
+    while (true) {
+        std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
+    }
+
     // Csignal für Abbruch über STRG-C
     for (;;);
     return 0;
