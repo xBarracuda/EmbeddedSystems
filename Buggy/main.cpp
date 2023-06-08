@@ -1,7 +1,7 @@
 ///
 /// Project main
 ///
-/*
+
 /// Includes
 #include <signal.h>
 #include <iostream>
@@ -31,7 +31,7 @@ int main()
 
     Buggy buggy(1, 4);
 
-    
+    /*
     Gyro gyro;
     //gyro.initializeGyro();
     gyro.startMeasurement();
@@ -49,7 +49,7 @@ int main()
         bcm2835_delay(20);
     }
     
-    
+    */
     buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;
     bcm2835_delay(1000);
@@ -61,7 +61,7 @@ int main()
     for (;;);
     return 0;
 }
-*/
+/*
 #include <thread>
 #include <chrono>
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
@@ -90,4 +90,4 @@ int main()
     }
 
     return 0;
-}
+}*/
