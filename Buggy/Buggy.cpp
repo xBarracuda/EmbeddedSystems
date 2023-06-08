@@ -9,6 +9,7 @@ Buggy::Buggy(int motorLeft, int motorRight)
 	this->motorRight = motorRight;
 
 	gyroskop = Gyro();
+	gyroskop.initializeGyro();
 	ultraschall = UltraSchall(18, 27);
 }
 
@@ -64,18 +65,23 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 	while (isRotating) {
 		std::cout << "Gyro: " << gyroskop.getRelativeAngle(zAxis) << std::endl;
 		if (gyroskop.getRelativeAngle(zAxis) > (angle + deltaAngle) && !isTurningLeft) {
+			std::cout << "Dreh links" << std::endl;
 			speedLeft -= curveSpeed;
 			isTurningLeft = true;
 			isTurningRight = false;
 			setMotors(speedLeft, speedRight);
 		}
 		else if (gyroskop.getRelativeAngle(zAxis) < (angle - deltaAngle) && !isTurningRight) {
+			std::cout << "Dreh rechts" << std::endl;
 			speedRight -= curveSpeed;
 			isTurningLeft = false;
 			isTurningRight = true;
 			setMotors(speedLeft, speedRight);
 		}
-		else if(gyroskop.getRelativeAngle(zAxis) > (angle - deltaAngle) && gyroskop.getRelativeAngle(zAxis) < (angle + deltaAngle)) isRotating = false;
+		else if (gyroskop.getRelativeAngle(zAxis) > (angle - deltaAngle) && gyroskop.getRelativeAngle(zAxis) < (angle + deltaAngle)) {
+			isRotating = false;
+			std::cout << "fertig" << std::endl;
+		}
 	}
 	releaseMotors();
 }
