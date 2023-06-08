@@ -6,7 +6,7 @@
 class Buggy{
     private:
     AdafruitMotorHAT hat;
-    //Gyro gyroskop;
+    Gyro gyroskop;
     //UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
