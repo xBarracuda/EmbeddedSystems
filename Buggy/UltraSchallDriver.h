@@ -7,7 +7,7 @@ private:
 	int Echo;
 
 public:
-	//UltraSchall();
+	UltraSchall();
 	UltraSchall(int PinTrigger, int PinEcho);
 	int getDistance();
 };
