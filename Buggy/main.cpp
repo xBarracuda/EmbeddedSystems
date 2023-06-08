@@ -26,7 +26,7 @@ void signalHandler(int signum)
 int main()
 {   
     std::cout << "Start" << std::endl;
-    Buggy buggy(1, 4);
+    //Buggy buggy(1, 4);
     signal(SIGINT, signalHandler);
 
     if (!bcm2835_init())
@@ -41,14 +41,14 @@ int main()
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }*/
     
-    /*
+    
     UltraSchall ultraSchall(18, 27);
 
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
         bcm2835_delay(20);
     }
-    *//*
+    /*
     buggy.drive(100);
     std::cout << "Geerade aus" << std::endl;
     bcm2835_delay(1000);
