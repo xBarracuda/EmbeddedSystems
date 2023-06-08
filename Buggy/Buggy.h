@@ -1,15 +1,14 @@
-//#include "motorDriver.h"
-//#include "gyroDriver.h"
-//
-//class Buggy{
-//    private:
-//    Motor motorRechts = Motor(0);
-//    Motor motorLinks = Motor(1);
-//
-//    Gyro gyroskop = Gyro();
-//
-//    public:
-//    Buggy();
-//    void drive(float speed, int command);
-//    void turn(float angle, float speed);
-//};
+#include "gyroDriver.h"
+#include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
+#include "UltraSchallDriver.h"
+
+class Buggy{
+    private:
+    AdafruitMotorHAT hat;
+    Gyro gyroskop;
+    UltraSchall ultraschall;
+
+    public:
+    Buggy();
+    void drive(float speed, Command command= AdafruitDCMotor::kForward, float angle=0, float curveSpeed=0);
+};
