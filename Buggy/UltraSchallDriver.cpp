@@ -11,22 +11,18 @@ UltraSchall::UltraSchall(int PinTrigger, int PinEcho)
 int UltraSchall::getDistance()
 {
 	bcm2835_gpio_write(Trigger, HIGH);
-
+	bcm2835_delayMicroseconds(30);
 	bcm2835_gpio_write(Trigger, LOW);
 
-	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now(); 
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	bcm2835_delayMicroseconds(450);
 
-	while (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() < 450) {
-		end = std::chrono::steady_clock::now();
-	}
-	begin = std::chrono::steady_clock::now();
+	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now(); 
 
 	while (bcm2835_gpio_lev(Echo) > 0) {
 
 	}
 
-	 end = std::chrono::steady_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	int duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
