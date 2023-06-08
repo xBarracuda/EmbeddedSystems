@@ -48,8 +48,8 @@ int main()
     }
     */
     buggy.drive(100);
-    bcm2835_delay(3000);
-    buggy.curve(100,90,50);
+    bcm2835_delay(1000);
+    buggy.curve(100,90,100);
 
     // Csignal für Abbruch über STRG-C
     for (;;);
