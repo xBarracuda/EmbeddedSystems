@@ -4,7 +4,7 @@
 
 #define gyroAxisAddr 0x43
 
-#define KalibirierungsIteration 5000
+#define KalibirierungsIteration 100
 #define BitToDegree 0.0152592f
 #define BitToDegreeNegative 0.0152587f
 

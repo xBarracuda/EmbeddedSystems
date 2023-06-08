@@ -30,11 +30,12 @@ int main()
     Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
-   while (true) {
+    std::cout << "Vor dem loop" << std::endl;
+    while (true) {
         std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) ;
         std::cout << " yAxis: " << std::dec << gyro.readGyroAxis(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
-   }
+    }
     
     /*
     UltraSchall ultraSchall(18, 27);
