@@ -8,6 +8,6 @@ Buggy::Buggy()
 	ultraschall = UltraSchall(18, 27);
 }
 
-void Buggy::drive(float speed, Command command, float angle, float curveSpeed)
+void Buggy::drive(float speed, AdafruitDCMotor::Command command, float angle, float curveSpeed)
 {
 }

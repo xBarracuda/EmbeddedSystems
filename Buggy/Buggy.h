@@ -11,5 +11,5 @@ class Buggy{
 
     public:
     Buggy();
-    void drive(float speed, Command command= AdafruitDCMotor::kForward, float angle=0, float curveSpeed=0);
+    void drive(float speed, AdafruitDCMotor::Command command= AdafruitDCMotor::kForward, float angle=0, float curveSpeed=0);
 };
