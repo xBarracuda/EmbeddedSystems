@@ -14,4 +14,5 @@ class Buggy{
     public:
     Buggy(int leftMotor, int rightMotor);
     void drive(float speed, float angle=0, float curveSpeed=0);
+    void stopBuggy();
 };

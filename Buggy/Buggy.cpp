@@ -35,3 +35,14 @@ void Buggy::drive(float speed, float angle, float curveSpeed)
 		if (speedRight == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
 }
+
+void Buggy::stopBuggy() {
+	if (auto motor{ hat.getMotor(this->motorLeft) })
+	{
+		motor->run(AdafruitDCMotor::kRelease);
+	}
+	if (auto motor{ hat.getMotor(this->motorRight) })
+	{
+		motor->run(AdafruitDCMotor::kRelease);
+	}
+}
