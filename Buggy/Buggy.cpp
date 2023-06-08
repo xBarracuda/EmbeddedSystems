@@ -31,6 +31,25 @@ void Buggy::drive(float speed)
 	}
 }
 
+void Buggy::setMotors(int leftSpeed, int rightSpeed)
+{
+	if (auto motor{ hat.getMotor(this->motorLeft) })
+	{
+		motor->setSpeed(leftSpeed);
+		if (leftSpeed > 0) motor->run(AdafruitDCMotor::kForward);
+		if (leftSpeed < 0) motor->run(AdafruitDCMotor::kBackward);
+		if (leftSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
+	}
+
+	if (auto motor{ hat.getMotor(this->motorRight) })
+	{
+		motor->setSpeed(rightSpeed);
+		if (rightSpeed > 0) motor->run(AdafruitDCMotor::kBackward);
+		if (rightSpeed < 0) motor->run(AdafruitDCMotor::kForward);
+		if (rightSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
+	}
+}
+
 void Buggy::curve(float speed, float angle, float curveSpeed)
 {
 	gyroskop.startMeasurement();
@@ -48,29 +67,15 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 			speedLeft -= curveSpeed;
 			isTurningLeft = true;
 			isTurningRight = false;
+			setMotors(speedLeft, speedRight);
 		}
 		else if (gyroskop.getRelativeAngle(zAxis) < (angle - deltaAngle) && !isTurningRight) {
 			speedRight -= curveSpeed;
 			isTurningLeft = false;
 			isTurningRight = true;
+			setMotors(speedLeft, speedRight);
 		}
-		else isRotating = false;
-
-		if (auto motor{ hat.getMotor(this->motorLeft) })
-		{
-			motor->setSpeed(speedLeft);
-			if (speedLeft > 0) motor->run(AdafruitDCMotor::kForward);
-			if (speedLeft < 0) motor->run(AdafruitDCMotor::kBackward);
-			if (speedLeft == 0) motor->run(AdafruitDCMotor::kRelease);
-		}
-
-		if (auto motor{ hat.getMotor(this->motorRight) })
-		{
-			motor->setSpeed(speedRight);
-			if (speedRight > 0) motor->run(AdafruitDCMotor::kBackward);
-			if (speedRight < 0) motor->run(AdafruitDCMotor::kForward);
-			if (speedRight == 0) motor->run(AdafruitDCMotor::kRelease);
-		}
+		else if(gyroskop.getRelativeAngle(zAxis) > (angle - deltaAngle) && gyroskop.getRelativeAngle(zAxis) < (angle + deltaAngle)) isRotating = false;
 	}
 	releaseMotors();
 }
