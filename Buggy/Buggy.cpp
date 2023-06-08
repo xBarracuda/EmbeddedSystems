@@ -20,6 +20,7 @@ void Buggy::drive(float speed)
 
 void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
+	AdafruitMotorHAT hat;
 	std::cout << "start set motors" << std::endl;
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{

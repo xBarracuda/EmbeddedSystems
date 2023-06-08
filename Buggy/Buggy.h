@@ -5,7 +5,6 @@
 #define deltaAngle 0.2f
 class Buggy{
     private:
-    AdafruitMotorHAT hat;
     Gyro gyroskop;
     UltraSchall ultraschall;
     int motorLeft;
