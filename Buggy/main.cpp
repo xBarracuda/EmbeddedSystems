@@ -32,22 +32,23 @@ int main()
     if (!bcm2835_init())
         return 1;
     
-    /*Gyro gyro;
+    Gyro gyro;
     //gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
         std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
-    }*/
+    }
     
-    
+  /*
     UltraSchall ultraSchall(18, 27);
 
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
         bcm2835_delay(20);
     }
+    */
     /*
     buggy.drive(100);
     std::cout << "Geerade aus" << std::endl;

@@ -7,13 +7,13 @@ class Buggy{
     private:
     AdafruitMotorHAT hat;
     Gyro gyroskop;
-    //UltraSchall ultraschall;
+    UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
     void setMotors(int leftSpeed, int rightSpeed);
 
     public:
-    Buggy(int leftMotor, int rightMotor);
+    Buggy(int motorLeft, int motorRight);
     void drive(float speed);
     void curve(float speed, float angle, float curveSpeed);
 };
