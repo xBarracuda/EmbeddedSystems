@@ -56,6 +56,7 @@ int main()
 
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
+        bcm2835_delay(20);
     }
 
     // Csignal für Abbruch über STRG-C
