@@ -27,7 +27,6 @@ int UltraSchall::getDistance()
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	int duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
-	std::cout << "Duration: " << duration << std::endl;
 	if (duration > 190*1000) {
 		return -1;
 	}
