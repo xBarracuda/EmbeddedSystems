@@ -19,6 +19,7 @@ private:
 	bool isMeasuring;
 
 public: 
+	Gyro();
 	float readGyroAxis(int axis);
 	void initializeGyro();
 	short read16bitRegister(int adress);

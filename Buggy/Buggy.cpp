@@ -9,7 +9,6 @@ Buggy::Buggy(int motorLeft, int motorRight)
 	this->motorRight = motorRight;
 
 	gyroskop = Gyro();
-	gyroskop.initializeGyro();
 	ultraschall = UltraSchall(18, 27);
 }
 

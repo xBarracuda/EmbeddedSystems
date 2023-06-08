@@ -4,6 +4,11 @@
 #include <chrono>
 #include <thread>
 
+Gyro::Gyro()
+{
+    initializeGyro();
+}
+
 float Gyro::readGyroAxis(int axis){
     //Gyroscope Measurements 
     short value = read16bitRegister(gyroAxisAddr + axis * 2);
