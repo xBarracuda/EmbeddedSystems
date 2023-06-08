@@ -47,7 +47,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 
 void Buggy::curve(float speed, float angle, float curveSpeed)
 {
-	gyroskop.startMeasurement();
+	/*gyroskop.startMeasurement();
 	std::cout << "Gyro gestartet" << std::endl;
 	int speedLeft = speed;
 	int speedRight = speed;
@@ -76,7 +76,7 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 			isRotating = false;
 			std::cout << "fertig" << std::endl;
 		}
-	}
+	}*/
 }
 
 void releaseMotors() {
