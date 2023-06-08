@@ -17,7 +17,7 @@ Buggy buggy(1, 4);
 void signalHandler(int signum)
 {
     cout << "\n Strg-C Programmende" << endl;
-    buggy.stopBuggy();
+    buggy.releaseMotors();
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     bcm2835_close();
     exit(signum);
@@ -49,7 +49,7 @@ int main()
     */
     buggy.drive(100);
     bcm2835_delay(3000);
-    buggy.drive(100,90,20);
+    buggy.curve(100,90,50);
 
     // Csignal für Abbruch über STRG-C
     for (;;);
