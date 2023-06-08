@@ -76,7 +76,6 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 			std::cout << "fertig" << std::endl;
 		}
 	}
-	releaseMotors();
 }
 
 void releaseMotors() {
