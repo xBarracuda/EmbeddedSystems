@@ -22,8 +22,8 @@ void Buggy::drive(float speed, float angle, float curveSpeed)
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
 		motor->setSpeed(speedLeft);
-		if (speedLeft > 0) motor->run(AdafruitDCMotor::kForward);
-		if (speedLeft < 0) motor->run(AdafruitDCMotor::kBackward);
+		if (speedLeft > 0) motor->run(AdafruitDCMotor::kBackward);
+		if (speedLeft < 0) motor->run(AdafruitDCMotor::kForward);
 		if (speedLeft == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
 
