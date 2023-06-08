@@ -21,11 +21,8 @@ int UltraSchall::getDistance()
 	bcm2835_delayMicroseconds(480);
 
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now(); 
-	int i = 0;
 	while (bcm2835_gpio_lev(Echo) > 0) {
-		i++;
 	}
-	std::cout << "i: " << i << std::endl;
 
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 

@@ -3,7 +3,7 @@ SOURCE    = main.cpp Buggy.cpp gyroDriver.cpp UltraSchallDriver.cpp
 HEADER    = Buggy.h gyroDriver.h UltraSchallDriver.h
 OUT    = main
 CC     = g++
-FLAGS     = -g -c -Wall
+FLAGS     = -g -c -Wall -O0
 LFLAGS     = 
 
 all: $(OBJS)
