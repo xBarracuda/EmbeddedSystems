@@ -17,7 +17,6 @@ using namespace std;
 void signalHandler(int signum)
 {
     cout << "\n Strg-C Programmende" << endl;
-    releaseMotors();
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     bcm2835_close();
     exit(signum);
@@ -26,12 +25,12 @@ void signalHandler(int signum)
 int main()
 {   
     std::cout << "Start" << std::endl;
-    //Buggy buggy(1, 4);
+    Buggy buggy(1, 4);
     signal(SIGINT, signalHandler);
 
     if (!bcm2835_init())
         return 1;
-    
+    /*
     Gyro gyro;
     //gyro.initializeGyro();
     gyro.startMeasurement();
@@ -40,7 +39,7 @@ int main()
         std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }
-    
+    */
   /*
     UltraSchall ultraSchall(18, 27);
 
