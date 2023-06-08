@@ -1,6 +1,7 @@
 #include "Buggy.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitdcmotor.h"
+#include <iostream>
 
 Buggy::Buggy(int motorLeft, int motorRight)
 {
@@ -33,6 +34,7 @@ void Buggy::drive(float speed)
 void Buggy::curve(float speed, float angle, float curveSpeed)
 {
 	gyroskop.startMeasurement();
+	std::cout << "Gyro gestartet" << std::endl;
 	int speedLeft = speed;
 	int speedRight = speed;
 
@@ -41,6 +43,7 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 	bool isTurningRight = false;
 
 	while (isRotating) {
+		std::cout << "Gyro: " << gyroskop.getRelativeAngle(zAxis) << std::endl;
 		if (gyroskop.getRelativeAngle(zAxis) > (angle + deltaAngle) && !isTurningLeft) {
 			speedLeft -= curveSpeed;
 			isTurningLeft = true;
