@@ -1,5 +1,6 @@
 #include "Buggy.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
+#include "adafruit-motor-hat-cpp-library/source/adafruitdcmotor.h"
 
 Buggy::Buggy()
 {

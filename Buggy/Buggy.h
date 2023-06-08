@@ -1,5 +1,6 @@
 #include "gyroDriver.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
+#include "adafruit-motor-hat-cpp-library/source/adafruitdcmotor.h"
 #include "UltraSchallDriver.h"
 
 class Buggy{
