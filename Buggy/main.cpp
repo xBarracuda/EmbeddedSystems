@@ -1,7 +1,7 @@
 ///
 /// Project main
 ///
-/*
+
 /// Includes
 #include <signal.h>
 #include <iostream>
@@ -30,9 +30,18 @@ int main()
         return 1;
 
     Buggy buggy(1, 4);
+    //buggy.drive(100);
+    //std::cout << "Geerade aus" << std::endl;
+    //bcm2835_delay(1000);
+    //std::cout << "Starte Kurve" << std::endl;
+    //buggy.curve(100,90,100);
+    //std::cout << "Kurve fertig" << std::endl;
+    buggy.setMotors(100, 100);
+    // Csignal für Abbruch über STRG-C
+    for (;;);
 
 
-    Gyro gyro;
+    /*Gyro gyro;
     //gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
@@ -46,20 +55,9 @@ int main()
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
         bcm2835_delay(20);
-    }
-    
-    //buggy.drive(100);
-    //std::cout << "Geerade aus" << std::endl;
-    //bcm2835_delay(1000);
-    //std::cout << "Starte Kurve" << std::endl;
-    //buggy.curve(100,90,100);
-    //std::cout << "Kurve fertig" << std::endl;
-    buggy.setMotors(100, 100);
-    // Csignal für Abbruch über STRG-C
-    for (;;);
-    return 0;
-}*/
-
+    }*/
+}
+/*
 #include <thread>
 #include <chrono>
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
@@ -89,3 +87,4 @@ int main()
 
     return 0;
 }
+*/
