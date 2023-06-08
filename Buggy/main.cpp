@@ -31,14 +31,14 @@ int main()
     if (!bcm2835_init())
         return 1;
     
-    /*Gyro gyro;
+    Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
         std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
-    }*/
+    }
     
     /*
     UltraSchall ultraSchall(18, 27);
@@ -47,14 +47,14 @@ int main()
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
         bcm2835_delay(20);
     }
-    */
+    *//*
     buggy.drive(100);
     std::cout << "Geerade aus" << std::endl;
     bcm2835_delay(1000);
     std::cout << "Starte Kurve" << std::endl;
     buggy.curve(100,90,100);
     std::cout << "Kurve fertig" << std::endl;
-
+    */
     // Csignal für Abbruch über STRG-C
     for (;;);
     return 0;
