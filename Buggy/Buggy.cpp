@@ -20,20 +20,27 @@ void Buggy::drive(float speed)
 
 void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
+	std::cout << "start set motors" << std::endl;
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
+		std::cout << "motor left" << std::endl;
 		motor->setSpeed(leftSpeed);
+		std::cout << "speed set" << std::endl;
 		if (leftSpeed > 0) motor->run(AdafruitDCMotor::kForward);
 		if (leftSpeed < 0) motor->run(AdafruitDCMotor::kBackward);
 		if (leftSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
+		std::cout << "sirection set" << std::endl;
 	}
 
 	if (auto motor{ hat.getMotor(this->motorRight) })
 	{
+		std::cout << "motor right" << std::endl;
 		motor->setSpeed(rightSpeed);
+		std::cout << "speed set" << std::endl;
 		if (rightSpeed > 0) motor->run(AdafruitDCMotor::kBackward);
 		if (rightSpeed < 0) motor->run(AdafruitDCMotor::kForward);
 		if (rightSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
+		std::cout << "sirection set" << std::endl;
 	}
 }
 
