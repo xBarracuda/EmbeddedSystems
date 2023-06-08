@@ -85,13 +85,12 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 	releaseMotors();
 }
 
-void Buggy::releaseMotors() {
-	if (auto motor{ hat.getMotor(this->motorLeft) })
-	{
-		motor->run(AdafruitDCMotor::kRelease);
-	}
-	if (auto motor{ hat.getMotor(this->motorRight) })
-	{
-		motor->run(AdafruitDCMotor::kRelease);
+void releaseMotors() {
+	AdafruitMotorHAT hat;
+	for (int i = 1; i <= 4; i++) {
+		if (auto motor{ hat.getMotor(i) })
+		{
+			motor->run(AdafruitDCMotor::kRelease);
+		}
 	}
 }

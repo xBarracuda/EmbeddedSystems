@@ -16,5 +16,5 @@ class Buggy{
     Buggy(int leftMotor, int rightMotor);
     void drive(float speed);
     void curve(float speed, float angle, float curveSpeed);
-    void releaseMotors();
 };
+void releaseMotors();
