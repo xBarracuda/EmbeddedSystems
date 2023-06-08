@@ -98,6 +98,7 @@ void Gyro::startMeasurement()
     }
     std::thread updateThread(&Gyro::updateMeasurement, this);
     updateThread.detach();
+    std::cout << "Gyro thread detached" << std::endl;
 }
 
 void Gyro::updateMeasurement()
