@@ -74,7 +74,7 @@ int main()
     AdafruitMotorHAT hat;
 
     // get the motor connected to port 1
-    if (auto motor{ hat.getMotor(1) })
+    if (auto motor{ hat.getMotor(2) })
     {
         // speed must be set before running commands
         motor->setSpeed(255);
