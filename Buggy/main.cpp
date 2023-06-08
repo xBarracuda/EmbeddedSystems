@@ -29,7 +29,7 @@ int main()
     if (!bcm2835_init())
         return 1;
 
-    Buggy buggy(1, 4);
+    Buggy buggy(2, 3);
 
     /*
     Gyro gyro;
