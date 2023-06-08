@@ -3,7 +3,7 @@
 ///
 
 /// Includes
-/*#include <signal.h>
+#include <signal.h>
 #include <iostream>
 #include <bcm2835.h>
 
@@ -49,45 +49,15 @@ int main()
         bcm2835_delay(20);
     }
     */
-    /*
+    
     buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;
-    bcm2835_delay(1000000);
+    bcm2835_delay(1000);
     std::cout << "Starte Kurve" << std::endl;
     buggy.curve(100,90,100);
     std::cout << "Kurve fertig" << std::endl;
     
     // Csignal für Abbruch über STRG-C
     for (;;);
-    return 0;
-}*/
-
-#include <thread>
-#include <chrono>
-#include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
-
-int main()
-{
-    using namespace std::chrono_literals;
-
-    // connect using the default device address 0x60
-    AdafruitMotorHAT hat;
-
-    // get the motor connected to port 1
-    if (auto motor{ hat.getMotor(1) })
-    {
-        // speed must be set before running commands
-        motor->setSpeed(255);
-
-        motor->run(AdafruitDCMotor::kForward);
-        std::this_thread::sleep_for(1s);
-
-        motor->run(AdafruitDCMotor::kBackward);
-        std::this_thread::sleep_for(1s);
-
-        // release the motor after use
-        motor->run(AdafruitDCMotor::kRelease);
-    }
-
     return 0;
 }
