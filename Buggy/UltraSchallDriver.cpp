@@ -10,6 +10,9 @@ UltraSchall::UltraSchall(int PinTrigger, int PinEcho)
 
 int UltraSchall::getDistance()
 {
+	bcm2835_gpio_fsel(Trigger, BCM2835_GPIO_FSEL_OUTP);
+	bcm2835_gpio_fsel(Echo, BCM2835_GPIO_FSEL_INPT);
+
 	bcm2835_gpio_write(Trigger, HIGH);
 	bcm2835_delayMicroseconds(30);
 	bcm2835_gpio_write(Trigger, LOW);
