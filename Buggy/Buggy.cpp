@@ -11,32 +11,54 @@ Buggy::Buggy(int motorLeft, int motorRight)
 	ultraschall = UltraSchall(18, 27);
 }
 
-void Buggy::drive(float speed, float angle, float curveSpeed)
+void Buggy::drive(float speed)
 {
-	int speedLeft = speed;
-	int speedRight = speed;
-
-	if (angle < 0)speedLeft -= curveSpeed;
-	if (angle > 0)speedRight -= curveSpeed;
-
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
-		motor->setSpeed(speedLeft);
-		if (speedLeft > 0) motor->run(AdafruitDCMotor::kForward);
-		if (speedLeft < 0) motor->run(AdafruitDCMotor::kBackward);
-		if (speedLeft == 0) motor->run(AdafruitDCMotor::kRelease);
+		motor->setSpeed(speed);
+		if (speed > 0) motor->run(AdafruitDCMotor::kForward);
+		if (speed < 0) motor->run(AdafruitDCMotor::kBackward);
+		if (speed == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
 
 	if (auto motor{ hat.getMotor(this->motorRight) })
 	{
-		motor->setSpeed(speedRight);
-		if (speedRight > 0) motor->run(AdafruitDCMotor::kBackward);
-		if (speedRight < 0) motor->run(AdafruitDCMotor::kForward);
-		if (speedRight == 0) motor->run(AdafruitDCMotor::kRelease);
+		motor->setSpeed(speed);
+		if (speed > 0) motor->run(AdafruitDCMotor::kBackward);
+		if (speed < 0) motor->run(AdafruitDCMotor::kForward);
+		if (speed == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
 }
 
-void Buggy::stopBuggy() {
+void Buggy::curve(float speed, float angle, float curveSpeed)
+{
+	gyroskop.startMeasurement();
+	int speedLeft = speed;
+	int speedRight = speed;
+	while (true) {
+		if (gyroskop.getRelativeAngle(zAxis) > (angle+deltaAngle))speedLeft -= curveSpeed;
+		else if (gyroskop.getRelativeAngle(zAxis) < (angle-deltaAngle))speedRight -= curveSpeed;
+		else break;
+		if (auto motor{ hat.getMotor(this->motorLeft) })
+		{
+			motor->setSpeed(speedLeft);
+			if (speedLeft > 0) motor->run(AdafruitDCMotor::kForward);
+			if (speedLeft < 0) motor->run(AdafruitDCMotor::kBackward);
+			if (speedLeft == 0) motor->run(AdafruitDCMotor::kRelease);
+		}
+
+		if (auto motor{ hat.getMotor(this->motorRight) })
+		{
+			motor->setSpeed(speedRight);
+			if (speedRight > 0) motor->run(AdafruitDCMotor::kBackward);
+			if (speedRight < 0) motor->run(AdafruitDCMotor::kForward);
+			if (speedRight == 0) motor->run(AdafruitDCMotor::kRelease);
+		}
+	}
+	releaseMotors();
+}
+
+void Buggy::releaseMotors() {
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
 		motor->run(AdafruitDCMotor::kRelease);

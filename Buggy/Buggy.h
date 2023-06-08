@@ -2,7 +2,7 @@
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitdcmotor.h"
 #include "UltraSchallDriver.h"
-
+#define deltaAngle 0.2f;
 class Buggy{
     private:
     AdafruitMotorHAT hat;
@@ -13,6 +13,7 @@ class Buggy{
 
     public:
     Buggy(int leftMotor, int rightMotor);
-    void drive(float speed, float angle=0, float curveSpeed=0);
-    void stopBuggy();
+    void drive(float speed);
+    void curve(float speed, float angle, float curveSpeed);
+    void releaseMotors();
 };
