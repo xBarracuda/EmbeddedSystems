@@ -19,7 +19,7 @@ void signalHandler(int signum)
     cout << "\n Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     releaseMotors();
-    bcm2835_close();
+    //bcm2835_close();
     exit(signum);
 }
 
