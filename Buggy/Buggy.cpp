@@ -7,8 +7,6 @@ Buggy::Buggy(int motorLeft, int motorRight)
 {
 	this->motorLeft = motorLeft;
 	this->motorRight = motorRight;
-
-	gyroskop = Gyro();
 	ultraschall = UltraSchall(18, 27);
 }
 

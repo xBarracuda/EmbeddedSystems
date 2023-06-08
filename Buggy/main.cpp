@@ -25,20 +25,20 @@ void signalHandler(int signum)
 
 int main()
 {    
-    //Buggy buggy(1, 4);
+    Buggy buggy(1, 4);
     signal(SIGINT, signalHandler);
 
     if (!bcm2835_init())
         return 1;
     
-    Gyro gyro;
+    /*Gyro gyro;
     //gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
         std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
-    }
+    }*/
     
     /*
     UltraSchall ultraSchall(18, 27);
