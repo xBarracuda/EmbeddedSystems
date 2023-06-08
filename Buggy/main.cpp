@@ -26,31 +26,16 @@ int main()
 
     if (!bcm2835_init())
         return 1;
-
-    /*Motor newMotor(0);
-    Motor newMotor1(1);
-    Motor newMotor2(2);
-    Motor newMotor3(3);
-
-    newMotor.setCommand(FORWARD);
-    newMotor1.setCommand(FORWARD);
-    newMotor2.setCommand(FORWARD);
-    newMotor3.setCommand(FORWARD);
-
-    newMotor.setSpeed(50);
-    newMotor1.setSpeed(50);
-    newMotor2.setSpeed(50);
-    newMotor3.setSpeed(50);*/
-    /*
+    
     Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
    while (true) {
-        //std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) << endl;
-        //std::cout << "yAxis: " << std::dec << gyro.readGyroAxis(yAxis) << endl;
+        std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) ;
+        std::cout << "yAxis: " << std::dec << gyro.readGyroAxis(yAxis) ;
         std::cout << "zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }
-    */
+    
     /*
     UltraSchall ultraSchall(18, 27);
 
