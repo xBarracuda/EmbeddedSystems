@@ -26,8 +26,8 @@ void signalHandler(int signum)
 int main()
 {   
     signal(SIGINT, signalHandler);
-    if (!bcm2835_init())
-        return 1;
+    //if (!bcm2835_init())
+    //    return 1;
 
     Buggy buggy(1, 4);
     //buggy.drive(100);
