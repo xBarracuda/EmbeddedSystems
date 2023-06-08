@@ -56,7 +56,7 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 	bool isTurningRight = false;
 
 	while (isRotating) {
-		std::cout << "Gyro: " << gyroskop.getRelativeAngle(zAxis) << std::endl;
+		//std::cout << "Gyro: " << gyroskop.getRelativeAngle(zAxis) << std::endl;
 		if (gyroskop.getRelativeAngle(zAxis) > (angle + deltaAngle) && !isTurningLeft) {
 			std::cout << "Dreh links" << std::endl;
 			speedLeft -= curveSpeed;
