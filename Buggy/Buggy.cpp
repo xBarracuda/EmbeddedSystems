@@ -22,7 +22,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
 	AdafruitMotorHAT hat;
 	std::cout << "start set motors" << std::endl;
-	if (auto motor{ hat.getMotor(this->motorLeft) })
+	if (auto motor{ hat.getMotor(1) })
 	{
 		std::cout << "motor left" << std::endl;
 		motor->setSpeed(leftSpeed);
@@ -33,7 +33,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 		std::cout << "sirection set" << std::endl;
 	}
 
-	if (auto motor{ hat.getMotor(this->motorRight) })
+	if (auto motor{ hat.getMotor(4) })
 	{
 		std::cout << "motor right" << std::endl;
 		motor->setSpeed(rightSpeed);
