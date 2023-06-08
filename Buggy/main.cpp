@@ -7,6 +7,7 @@
 #include <iostream>
 #include <bcm2835.h>
 
+#include "Buggy.h"
 #include "gyroDriver.h"
 #include "UltraSchallDriver.h"
 
@@ -27,14 +28,14 @@ int main()
     if (!bcm2835_init())
         return 1;
     
-    Gyro gyro;
+    /*Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
         std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
-    }
+    }*/
     
     /*
     UltraSchall ultraSchall(18, 27);
@@ -44,6 +45,12 @@ int main()
         bcm2835_delay(20);
     }
     */
+
+    Buggy buggy(1,4);
+    buggy.drive(100);
+    bcm2835_delay(3000);
+    buggy.drive(100,90,100);
+
     // Csignal für Abbruch über STRG-C
     for (;;);
     return 0;

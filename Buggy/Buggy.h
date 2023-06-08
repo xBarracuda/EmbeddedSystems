@@ -8,8 +8,10 @@ class Buggy{
     AdafruitMotorHAT hat;
     Gyro gyroskop;
     UltraSchall ultraschall;
+    int motorLeft;
+    int motorRight;
 
     public:
-    Buggy();
-    void drive(float speed, AdafruitDCMotor::Command command= AdafruitDCMotor::kForward, float angle=0, float curveSpeed=0);
+    Buggy(int leftMotor, int rightMotor);
+    void drive(float speed, float angle=0, float curveSpeed=0);
 };
