@@ -16,8 +16,8 @@ void Buggy::drive(float speed, float angle, float curveSpeed)
 	int speedLeft = speed;
 	int speedRight = speed;
 
-	if (angle < 0)speedLeft-curveSpeed;
-	if (angle > 0)speedRight - curveSpeed;
+	if (angle < 0)speedLeft -= curveSpeed;
+	if (angle > 0)speedRight -= curveSpeed;
 
 	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
