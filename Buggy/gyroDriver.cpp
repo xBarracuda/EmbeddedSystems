@@ -9,6 +9,7 @@ Gyro::Gyro() {}
 Gyro::Gyro(std::mutex *i2c_mutex)
 {
     this->i2c_mutex = i2c_mutex;
+    std::cout << "mutex assigende" << std::endl;
     initializeGyro();
 }
 
@@ -37,7 +38,9 @@ float Gyro::readGyroAxis(int axis){
 
 void Gyro::initializeGyro()
 {
+    std::cout << "waiting for lock" << std::endl;
     i2c_mutex->lock();
+    std::cout << "lock claimed" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
 
@@ -62,6 +65,7 @@ void Gyro::initializeGyro()
 
     bcm2835_i2c_end();
     i2c_mutex->unlock();
+    std::cout << "lock released" << std::endl;
     x_offset = (short)(x/KalibirierungsIteration);
     y_offset = (short)(y/KalibirierungsIteration);
     z_offset = (short)(z/KalibirierungsIteration);
