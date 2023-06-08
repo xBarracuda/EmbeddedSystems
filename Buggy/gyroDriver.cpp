@@ -86,26 +86,21 @@ short Gyro::read16bitRegister(int adress)
 
 void Gyro::startMeasurement()
 {
-    std::cout << "Start measure" << std::endl;
     this->isMeasuring = true;
     for (int i = 0; i < 3; i++)
     {
         this->relativeAngle[i] = 0;
     }
-    std::cout << "Start thread" << std::endl;
     std::thread updateThread(&Gyro::updateMeasurement, this);
     updateThread.detach();
-    std::cout << "detached" << std::endl;
 }
 
 void Gyro::updateMeasurement()
 {
-    std::cout << "thread started" << std::endl;
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     bool firstMeasurment = true;
     float GradProSekunde[3];
     while (isMeasuring) {
-        std::cout << "in thread loop" << std::endl;
         std::chrono::steady_clock::time_point oldbegin = begin;
         GradProSekunde[0] = readGyroAxis(xAxis);
         GradProSekunde[1] = readGyroAxis(yAxis);

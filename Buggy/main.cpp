@@ -30,10 +30,9 @@ int main()
     Gyro gyro;
     gyro.initializeGyro();
     gyro.startMeasurement();
-    std::cout << "Vor dem loop" << std::endl;
     while (true) {
-        std::cout << "xAxis: " << std::dec << gyro.readGyroAxis(xAxis) ;
-        std::cout << " yAxis: " << std::dec << gyro.readGyroAxis(yAxis) ;
+        std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
+        std::cout << " yAxis: " << std::dec << gyro.getRelativeAngle(yAxis) ;
         std::cout << " zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }
     
