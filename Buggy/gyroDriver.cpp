@@ -66,7 +66,6 @@ void Gyro::initializeGyro()
     y_offset = (short)(y/KalibirierungsIteration);
     z_offset = (short)(z/KalibirierungsIteration);
 
-    
 }
 
 short Gyro::read16bitRegister(int adress)
@@ -91,7 +90,6 @@ short Gyro::read16bitRegister(int adress)
     value |= (short)(buffer[0]);
 
     return value;
-
 }
 
 void Gyro::startMeasurement()

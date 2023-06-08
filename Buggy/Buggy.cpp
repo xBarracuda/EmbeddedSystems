@@ -8,7 +8,9 @@ void Buggy::init(int motorLeft, int motorRight)
 	this->motorLeft = motorLeft;
 	this->motorRight = motorRight;
 	//ultraschall = UltraSchall(18, 27);
+	std::cout << "init gyro" << std::endl;
 	gyroskop = Gyro(&i2c_mutex);
+	std::cout << "done" << std::endl;
 }
 
 void Buggy::drive(float speed)
