@@ -5,7 +5,7 @@
 #define deltaAngle 0.2f
 class Buggy{
     private:
-    //Gyro gyroskop;
+    Gyro gyroskop;
     //UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
