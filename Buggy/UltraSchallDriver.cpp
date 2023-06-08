@@ -3,12 +3,12 @@
 #include <chrono>
 #include <iostream>
 
-/*
+
 UltraSchall::UltraSchall()
 {
-	this->Echo = 27;
-	this->Trigger = 18;
-}*/
+	//this->Echo = 27;
+	//this->Trigger = 18;
+}
 
 UltraSchall::UltraSchall(int PinTrigger, int PinEcho)
 {
