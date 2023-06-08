@@ -49,7 +49,7 @@ int main()
     */
     buggy.drive(100);
     bcm2835_delay(3000);
-    buggy.drive(100,90,100);
+    buggy.drive(100,90,20);
 
     // Csignal für Abbruch über STRG-C
     for (;;);
