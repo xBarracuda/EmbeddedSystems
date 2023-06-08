@@ -54,8 +54,11 @@ void Gyro::initializeGyro()
     buffer[0] = 0x1B; // Gyroskop-Konfigurationsregister
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
+    bcm2835_i2c_end();
+    i2c_mutex->unlock();
 
     int x, y, z;
+    
     for (int i = 0; i < KalibirierungsIteration; i++)
     {
         x += (int)read16bitRegister(gyroAxisAddr + xAxis * 2);
@@ -63,9 +66,6 @@ void Gyro::initializeGyro()
         z += (int)read16bitRegister(gyroAxisAddr + zAxis * 2);
     }
 
-    bcm2835_i2c_end();
-    i2c_mutex->unlock();
-    std::cout << "lock released" << std::endl;
     x_offset = (short)(x/KalibirierungsIteration);
     y_offset = (short)(y/KalibirierungsIteration);
     z_offset = (short)(z/KalibirierungsIteration);
