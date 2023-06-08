@@ -50,9 +50,9 @@ int main()
     }
     */
     
-    //buggy.drive(100);
+    buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;
-    //bcm2835_delay(1000000);
+    bcm2835_delay(1000000);
     std::cout << "Starte Kurve" << std::endl;
     buggy.curve(100,90,100);
     std::cout << "Kurve fertig" << std::endl;
