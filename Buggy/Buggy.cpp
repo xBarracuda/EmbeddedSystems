@@ -5,8 +5,12 @@
 
 Buggy::Buggy(int motorLeft, int motorRight)
 {
+	std::cout << "Const" << std::endl;
 	this->motorLeft = motorLeft;
+	std::cout << "Left done" << std::endl;
 	this->motorRight = motorRight;
+
+	std::cout << "Motor assignment" << std::endl;
 	//ultraschall = UltraSchall(18, 27);
 }
 

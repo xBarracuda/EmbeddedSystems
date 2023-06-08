@@ -24,7 +24,8 @@ void signalHandler(int signum)
 }
 
 int main()
-{    
+{   
+    std::cout << "Start" << std::endl;
     Buggy buggy(1, 4);
     signal(SIGINT, signalHandler);
 
