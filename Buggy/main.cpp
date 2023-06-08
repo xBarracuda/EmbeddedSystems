@@ -26,7 +26,7 @@ void signalHandler(int signum)
 int main()
 {   
     std::cout << "Start" << std::endl;
-    Buggy buggy = Buggy(1, 4);
+    Buggy buggy = Buggy::Buggy(1, 4);
     signal(SIGINT, signalHandler);
 
     if (!bcm2835_init())
