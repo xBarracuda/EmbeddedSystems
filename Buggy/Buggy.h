@@ -6,7 +6,7 @@
 class Buggy{
     private:
     Gyro gyroskop;
-    //UltraSchall ultraschall;
+    UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
     
