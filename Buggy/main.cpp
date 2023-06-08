@@ -51,8 +51,8 @@ int main()
         std::cout << "zAxis: " << std::dec << gyro.getRelativeAngle(zAxis) << endl;
     }
     */
-    UltraSchall ultraSchall(24,13);
-    //UltraSchall ultraSchall(18, 27);
+    //UltraSchall ultraSchall(24,13);
+    UltraSchall ultraSchall(18, 27);
 
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
