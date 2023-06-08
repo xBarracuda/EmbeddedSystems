@@ -8,6 +8,7 @@ Gyro::Gyro() {}
 
 Gyro::Gyro(std::mutex *i2c_mutex)
 {
+    this->i2c_mutex = i2c_mutex;
     initializeGyro();
 }
 
