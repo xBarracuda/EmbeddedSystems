@@ -29,7 +29,7 @@ int UltraSchall::getDistance()
 
 	int duration = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
-	if (duration > 190) {
+	if (duration > 190*1000) {
 		return -1;
 	}
 	else {
