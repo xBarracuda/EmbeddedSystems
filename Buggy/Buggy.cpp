@@ -35,10 +35,14 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 	gyroskop.startMeasurement();
 	int speedLeft = speed;
 	int speedRight = speed;
-	while (true) {
+
+	bool isRotating = true;
+
+	while (isRotating) {
 		if (gyroskop.getRelativeAngle(zAxis) > (angle+deltaAngle))speedLeft -= curveSpeed;
 		else if (gyroskop.getRelativeAngle(zAxis) < (angle-deltaAngle))speedRight -= curveSpeed;
-		else break;
+		else isRotating = false;
+
 		if (auto motor{ hat.getMotor(this->motorLeft) })
 		{
 			motor->setSpeed(speedLeft);
