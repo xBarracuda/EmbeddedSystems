@@ -8,25 +8,14 @@ Buggy::Buggy(int motorLeft, int motorRight)
 	this->motorLeft = motorLeft;
 	this->motorRight = motorRight;
 	ultraschall = UltraSchall(18, 27);
+	std::cout << "ende constuctor" << std::endl;
 }
 
 void Buggy::drive(float speed)
 {
-	if (auto motor{ hat.getMotor(this->motorLeft) })
-	{
-		motor->setSpeed(speed);
-		if (speed > 0) motor->run(AdafruitDCMotor::kForward);
-		if (speed < 0) motor->run(AdafruitDCMotor::kBackward);
-		if (speed == 0) motor->run(AdafruitDCMotor::kRelease);
-	}
-
-	if (auto motor{ hat.getMotor(this->motorRight) })
-	{
-		motor->setSpeed(speed);
-		if (speed > 0) motor->run(AdafruitDCMotor::kBackward);
-		if (speed < 0) motor->run(AdafruitDCMotor::kForward);
-		if (speed == 0) motor->run(AdafruitDCMotor::kRelease);
-	}
+	std::cout << "start drive" << std::endl;
+	setMotors(speed, speed);
+	std::cout << "end drive" << std::endl;
 }
 
 void Buggy::setMotors(int leftSpeed, int rightSpeed)
