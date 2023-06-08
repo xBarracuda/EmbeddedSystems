@@ -8,6 +8,6 @@ private:
 
 public:
 	UltraSchall();
-	UltraSchall(int PinTrigger, int PinEcho);
+	//UltraSchall(int PinTrigger, int PinEcho);
 	int getDistance();
 };

@@ -7,7 +7,7 @@ Buggy::Buggy(int motorLeft, int motorRight)
 {
 	this->motorLeft = motorLeft;
 	this->motorRight = motorRight;
-	ultraschall = UltraSchall(18, 27);
+	//ultraschall = UltraSchall(18, 27);
 }
 
 void Buggy::drive(float speed)

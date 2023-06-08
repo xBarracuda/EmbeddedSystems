@@ -5,14 +5,16 @@
 
 UltraSchall::UltraSchall()
 {
+	this->Echo = 27;
+	this->Trigger = 18;
 }
-
+/*
 UltraSchall::UltraSchall(int PinTrigger, int PinEcho)
 {
 	this->Echo = PinEcho;
 	this->Trigger = PinTrigger;
 }
-
+*/
 int UltraSchall::getDistance()
 {
 	bcm2835_gpio_fsel(Trigger, BCM2835_GPIO_FSEL_OUTP);
