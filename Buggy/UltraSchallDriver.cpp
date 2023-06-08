@@ -3,6 +3,10 @@
 #include <chrono>
 #include <iostream>
 
+UltraSchall::UltraSchall()
+{
+}
+
 UltraSchall::UltraSchall(int PinTrigger, int PinEcho)
 {
 	this->Echo = PinEcho;
