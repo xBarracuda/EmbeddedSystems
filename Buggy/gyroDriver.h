@@ -1,3 +1,5 @@
+#pragma once
+
 #define xAxis 0
 #define yAxis 1
 #define zAxis 2
