@@ -20,7 +20,9 @@ void Buggy::drive(float speed)
 
 void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
+	std::cout << "before mutex lock in setmotor" << std::endl;
 	i2c_mutex.lock();
+	std::cout << "mutex locked in setmotor" << std::endl;			
 	AdafruitMotorHAT hat;
 	if (auto motor{ hat.getMotor(1) })
 	{
@@ -38,6 +40,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 		if (rightSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
 	i2c_mutex.unlock();
+	std::cout << "mutex unlocked in setmotor" << std::endl;
 }
 
 void Buggy::curve(float speed, float angle, float curveSpeed)

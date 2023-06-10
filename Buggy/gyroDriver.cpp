@@ -9,7 +9,7 @@ Gyro::Gyro() {}
 Gyro::Gyro(std::mutex *i2c_mutex)
 {
     this->i2c_mutex = i2c_mutex;
-    std::cout << "mutex assigende" << std::endl;
+    std::cout << "mutex assigned" << std::endl;
     initializeGyro();
 }
 
@@ -38,9 +38,9 @@ float Gyro::readGyroAxis(int axis){
 
 void Gyro::initializeGyro()
 {
-    std::cout << "waiting for lock" << std::endl;
+    std::cout << "waiting for lock in initialize" << std::endl;
     i2c_mutex->lock();
-    std::cout << "lock claimed" << std::endl;
+    std::cout << "lock claimed in initialize" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
 
@@ -56,7 +56,7 @@ void Gyro::initializeGyro()
     bcm2835_i2c_write(buffer, 2);
     bcm2835_i2c_end();
     i2c_mutex->unlock();
-
+    std::cout << "mutex unlocked in initialize" << std::endl;
     int x, y, z;
     
     for (int i = 0; i < KalibirierungsIteration; i++)
@@ -74,7 +74,9 @@ void Gyro::initializeGyro()
 
 short Gyro::read16bitRegister(int adress)
 {
+    std::cout << "before mutex lock in read16bitReg" << std::endl;
     i2c_mutex->lock();
+    std::cout << "locked mutex in 16bitreg" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
    // bcm2835_i2c_setClockDivider(10000);
@@ -91,6 +93,7 @@ short Gyro::read16bitRegister(int adress)
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
     i2c_mutex->unlock();
+    std::cout << "unlocked mutex in 16bitreg" << std::endl;
     value |= (short)(buffer[0]);
 
     return value;
