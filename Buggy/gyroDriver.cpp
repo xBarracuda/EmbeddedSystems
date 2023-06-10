@@ -10,7 +10,7 @@ Gyro::Gyro(std::mutex *i2c_mutex)
 {
     this->i2c_mutex = i2c_mutex;
     std::cout << "mutex assigned" << std::endl;
-        initializeGyro();
+        //initializeGyro();
 }
 
 float Gyro::readGyroAxis(int axis){
@@ -40,8 +40,6 @@ void Gyro::initializeGyro()
 {
     std::cout << "waiting for lock in initialize" << std::endl;
     i2c_mutex->lock(); 
-    if (!bcm2835_init())
-        std::cout << "konnte nicht initialisiert werden" << std::endl;
     bcm2835_delay(1);
     std::cout << "lock claimed in initialize" << std::endl;
     bcm2835_i2c_begin();
@@ -59,7 +57,6 @@ void Gyro::initializeGyro()
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
     bcm2835_i2c_end();
-    bcm2835_close();
 
     i2c_mutex->unlock();
     std::cout << "mutex unlocked in initialize" << std::endl;
@@ -82,8 +79,6 @@ void Gyro::initializeGyro()
 short Gyro::read16bitRegister(int adress)
 {
     i2c_mutex->lock();
-    if (!bcm2835_init())
-        std::cout << "konnte nicht initialisiert werden" << std::endl;
     bcm2835_delay(1);
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
@@ -100,7 +95,6 @@ short Gyro::read16bitRegister(int adress)
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
-    bcm2835_close();
 
     i2c_mutex->unlock();
     value |= (short)(buffer[0]);

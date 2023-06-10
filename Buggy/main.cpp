@@ -20,15 +20,15 @@ void signalHandler(int signum)
     cout << "\n Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     buggy.releaseMotors();
-   // bcm2835_close();
+    bcm2835_close();
     exit(signum);
 }
 
 int main()
 {   
     signal(SIGINT, signalHandler);
-    /*if (!bcm2835_init())
-        return 1;*/
+    if (!bcm2835_init())
+        std::cout << "konnte nicht initialisiert werden" << std::endl;
 
     buggy.init(1, 4);
     //buggy.drive(100);
@@ -39,11 +39,11 @@ int main()
     //std::cout << "Kurve fertig" << std::endl;
     buggy.setMotors(100, 100);
     // Csignal für Abbruch über STRG-C
-    for (;;);
+    //for (;;);
 
 
-    /*Gyro gyro;
-    //gyro.initializeGyro();
+    Gyro gyro;
+    gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
@@ -56,7 +56,7 @@ int main()
     while (true) {
         std::cout << "Abstand: " << std::dec << ultraSchall.getDistance() << "cm" << std::endl;
         bcm2835_delay(20);
-    }*/
+    }
 }
 /*
 #include <thread>
