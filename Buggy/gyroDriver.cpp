@@ -10,7 +10,7 @@ Gyro::Gyro(std::mutex *i2c_mutex)
 {
     this->i2c_mutex = i2c_mutex;
     std::cout << "mutex assigned" << std::endl;
-        //initializeGyro();
+        initializeGyro();
 }
 
 float Gyro::readGyroAxis(int axis){
