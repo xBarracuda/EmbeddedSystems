@@ -23,7 +23,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 	std::cout << "before mutex lock in setmotor" << std::endl;
 	i2c_mutex.lock();
 	std::cout << "mutex locked in setmotor" << std::endl;			
-	AdafruitMotorHAT hat;
+	
 	if (auto motor{ hat.getMotor(1) })
 	{
 		motor->setSpeed(leftSpeed);
