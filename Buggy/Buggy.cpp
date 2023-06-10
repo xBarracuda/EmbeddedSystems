@@ -32,6 +32,9 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 		if (leftSpeed < 0) motor->run(AdafruitDCMotor::kBackward);
 		if (leftSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
 	}
+	else {
+		std::cout << "Motor konnte nicht gesetzt werden" << std::endl;
+	}
 
 	if (auto motor{ hat.getMotor(4) })
 	{
@@ -41,6 +44,9 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 		if (rightSpeed > 0) motor->run(AdafruitDCMotor::kBackward);
 		if (rightSpeed < 0) motor->run(AdafruitDCMotor::kForward);
 		if (rightSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
+	}
+	else {
+		std::cout << "Motor konnte nicht gesetzt werden" << std::endl;
 	}
 	i2c_mutex.unlock();
 	std::cout << "mutex unlocked in setmotor" << std::endl;
