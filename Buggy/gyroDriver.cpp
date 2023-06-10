@@ -75,7 +75,7 @@ void Gyro::initializeGyro()
 short Gyro::read16bitRegister(int adress)
 {
     std::cout << "before mutex lock in read16bitReg" << std::endl;
-    i2c_mutex->lock();
+    //i2c_mutex->lock();
     std::cout << "locked mutex in 16bitreg" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
@@ -92,7 +92,7 @@ short Gyro::read16bitRegister(int adress)
     bcm2835_i2c_write(buffer, 1);
     bcm2835_i2c_read(buffer, 1);
     bcm2835_i2c_end();
-    i2c_mutex->unlock();
+   // i2c_mutex->unlock();
     std::cout << "unlocked mutex in 16bitreg" << std::endl;
     value |= (short)(buffer[0]);
 
