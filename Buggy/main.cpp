@@ -43,7 +43,7 @@ int main()
 
     std::mutex mtx;
     Gyro gyro(&mtx);
-    gyro.initializeGyro();
+    //gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
         std::cout << "xAxis: " << std::dec << gyro.getRelativeAngle(xAxis) ;
