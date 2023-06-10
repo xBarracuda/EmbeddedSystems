@@ -27,6 +27,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 	if (auto motor{ hat.getMotor(1) })
 	{
 		motor->setSpeed(leftSpeed);
+		std::cout << "speed left set" << std::endl;
 		if (leftSpeed > 0) motor->run(AdafruitDCMotor::kForward);
 		if (leftSpeed < 0) motor->run(AdafruitDCMotor::kBackward);
 		if (leftSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
@@ -35,6 +36,8 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 	if (auto motor{ hat.getMotor(4) })
 	{
 		motor->setSpeed(rightSpeed);
+		std::cout << "speed right set" << std::endl;
+
 		if (rightSpeed > 0) motor->run(AdafruitDCMotor::kBackward);
 		if (rightSpeed < 0) motor->run(AdafruitDCMotor::kForward);
 		if (rightSpeed == 0) motor->run(AdafruitDCMotor::kRelease);
@@ -45,7 +48,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 
 void Buggy::curve(float speed, float angle, float curveSpeed)
 {
-	/*gyroskop.startMeasurement();
+	gyroskop.startMeasurement();
 	std::cout << "Gyro gestartet" << std::endl;
 	int speedLeft = speed;
 	int speedRight = speed;
@@ -74,12 +77,11 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 			isRotating = false;
 			std::cout << "fertig" << std::endl;
 		}
-	}*/
+	}
 }
 
 void Buggy::releaseMotors() {
 	i2c_mutex.lock();
-	AdafruitMotorHAT hat;
 	for (int i = 1; i <= 4; i++) {
 		if (auto motor{ hat.getMotor(i) })
 		{
