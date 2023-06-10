@@ -22,6 +22,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
 	std::cout << "before mutex lock in setmotor" << std::endl;
 	i2c_mutex.lock();
+	bcm2835_delay(1);
 	std::cout << "mutex locked in setmotor" << std::endl;			
 	
 	if (auto motor{ hat.getMotor(1) })
@@ -88,6 +89,7 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 
 void Buggy::releaseMotors() {
 	i2c_mutex.lock();
+	bcm2835_delay(1);
 	for (int i = 1; i <= 4; i++) {
 		if (auto motor{ hat.getMotor(i) })
 		{

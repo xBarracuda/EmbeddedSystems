@@ -40,6 +40,7 @@ void Gyro::initializeGyro()
 {
     std::cout << "waiting for lock in initialize" << std::endl;
     i2c_mutex->lock();
+    bcm2835_delay(1);
     std::cout << "lock claimed in initialize" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
@@ -76,6 +77,7 @@ short Gyro::read16bitRegister(int adress)
 {
     std::cout << "before mutex lock in read16bitReg" << std::endl;
     i2c_mutex->lock();
+    bcm2835_delay(1);
     std::cout << "locked mutex in 16bitreg" << std::endl;
     bcm2835_i2c_begin();
     bcm2835_i2c_setSlaveAddress(0x68);
