@@ -40,18 +40,20 @@ void Gyro::initializeGyro()
 {
     std::cout << "waiting for lock in initialize" << std::endl;
     i2c_mutex->lock(); 
+    std::cout << "before delay" << std::endl;
     bcm2835_delay(1);
     std::cout << "lock claimed in initialize" << std::endl;
     bcm2835_i2c_begin();
+    std::cout << "i2c begin" << std::endl;
     bcm2835_i2c_setSlaveAddress(0x68);
+    std::cout << "slave adress set" << std::endl;
 
     // Power Management
     char buffer[2];
     buffer[0] = 0x6B; // Power Management Register
     buffer[1] = 0x00; // Aktiviere das Gyroskop (Wakeup)
     bcm2835_i2c_write(buffer, 2);
-    i2c_mutex->unlock();
-    i2c_mutex->lock();
+    
     // Konfiguration des Gyroskops
     buffer[0] = 0x1B; // Gyroskop-Konfigurationsregister
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich

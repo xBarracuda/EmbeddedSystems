@@ -41,8 +41,8 @@ int main()
     // Csignal für Abbruch über STRG-C
     //for (;;);
 
-
-    Gyro gyro;
+    std::mutex mtx;
+    Gyro gyro(&mtx);
     gyro.initializeGyro();
     gyro.startMeasurement();
     while (true) {
