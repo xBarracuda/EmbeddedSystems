@@ -23,6 +23,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 {
 	std::cout << "before mutex lock in setmotor" << std::endl;
 	i2c_mutex.lock();
+	
 	bcm2835_delay(1);
 	std::cout << "mutex locked in setmotor" << std::endl;			
 	
@@ -49,7 +50,8 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 	}
 	else {
 		std::cout << "Motor konnte nicht gesetzt werden" << std::endl;
-	}
+	}    
+
 	i2c_mutex.unlock();
 	std::cout << "mutex unlocked in setmotor" << std::endl;
 }

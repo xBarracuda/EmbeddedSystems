@@ -20,15 +20,15 @@ void signalHandler(int signum)
     cout << "\n Strg-C Programmende" << endl;
 	// Beenden Sie hier bitte alle Verbindung zu den Sensoren etc.
     buggy.releaseMotors();
-    bcm2835_close();
+   // bcm2835_close();
     exit(signum);
 }
 
 int main()
 {   
     signal(SIGINT, signalHandler);
-    if (!bcm2835_init())
-        return 1;
+    /*if (!bcm2835_init())
+        return 1;*/
 
     buggy.init(1, 4);
     //buggy.drive(100);
