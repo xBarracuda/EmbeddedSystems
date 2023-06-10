@@ -26,7 +26,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 	bcm2835_delay(1);
 	std::cout << "mutex locked in setmotor" << std::endl;			
 	
-	if (auto motor{ hat.getMotor(1) })
+	if (auto motor{ hat.getMotor(this->motorLeft) })
 	{
 		motor->setSpeed(leftSpeed);
 		std::cout << "speed left set" << std::endl;
@@ -38,7 +38,7 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 		std::cout << "Motor konnte nicht gesetzt werden" << std::endl;
 	}
 
-	if (auto motor{ hat.getMotor(4) })
+	if (auto motor{ hat.getMotor(this->motorRight) })
 	{
 		motor->setSpeed(rightSpeed);
 		std::cout << "speed right set" << std::endl;
