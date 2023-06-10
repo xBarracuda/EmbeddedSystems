@@ -2,6 +2,7 @@
 #include "adafruit-motor-hat-cpp-library/source/adafruitmotorhat.h"
 #include "adafruit-motor-hat-cpp-library/source/adafruitdcmotor.h"
 #include <iostream>
+#include <bcm2835.h>
 
 void Buggy::init(int motorLeft, int motorRight)
 {
