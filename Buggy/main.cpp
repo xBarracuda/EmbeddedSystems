@@ -29,7 +29,6 @@ int main()
     signal(SIGINT, signalHandler);
     if (!bcm2835_init())
         std::cout << "konnte nicht initialisiert werden" << std::endl;
-    std::cin.get();
     buggy.init(1, 4);
     //buggy.drive(100);
     //std::cout << "Geerade aus" << std::endl;

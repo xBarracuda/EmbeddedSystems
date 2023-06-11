@@ -44,8 +44,10 @@ void Gyro::initializeGyro()
     bcm2835_delay(1);
     std::cout << "lock claimed in initialize" << std::endl;
     bcm2835_i2c_begin();
+    std::cin.get();
     std::cout << "i2c begin" << std::endl;
     bcm2835_i2c_setSlaveAddress(0x68);
+    std::cin.get();
     std::cout << "slave adress set" << std::endl;
 
     // Power Management
