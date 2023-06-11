@@ -11,7 +11,6 @@ class Buggy{
     //UltraSchall ultraschall;
     int motorLeft;
     int motorRight;
-    AdafruitMotorHAT hat;
     std::mutex i2c_mutex;
 
     public:
