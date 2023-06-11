@@ -55,12 +55,17 @@ void Gyro::initializeGyro()
     buffer[0] = 0x6B; // Power Management Register
     buffer[1] = 0x00; // Aktiviere das Gyroskop (Wakeup)
     bcm2835_i2c_write(buffer, 2);
+    std::cin.get();
+
     
     // Konfiguration des Gyroskops
     buffer[0] = 0x1B; // Gyroskop-Konfigurationsregister
     buffer[1] = 0x08; // ±500 Grad/Sekunde Messbereich
     bcm2835_i2c_write(buffer, 2);
+    std::cin.get();
+
     bcm2835_i2c_end();
+    std::cin.get();
 
     i2c_mutex->unlock();
     std::cout << "mutex unlocked in initialize" << std::endl;
