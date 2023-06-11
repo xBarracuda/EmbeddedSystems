@@ -25,6 +25,8 @@ void Buggy::setMotors(int leftSpeed, int rightSpeed)
 
 	std::cout << "before mutex lock in setmotor" << std::endl;
 	i2c_mutex.lock();
+	bcm2835_i2c_setSlaveAddress(0x60);
+
 	AdafruitMotorHAT hat;
 	std::cout << "mutex locked in setmotor" << std::endl;			
 	
@@ -93,6 +95,8 @@ void Buggy::curve(float speed, float angle, float curveSpeed)
 
 void Buggy::releaseMotors() {
 	i2c_mutex.lock();
+	bcm2835_i2c_setSlaveAddress(0x68);
+
 	AdafruitMotorHAT hat;
 
 	for (int i = 1; i <= 4; i++) {
