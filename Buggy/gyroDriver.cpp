@@ -64,7 +64,7 @@ void Gyro::initializeGyro()
 
     i2c_mutex->unlock();
     std::cout << "mutex unlocked in initialize" << std::endl;
-    int x = 0, y = 0, z = 0;
+   /* int x = 0, y = 0, z = 0;
 
     
     for (int i = 0; i < KalibirierungsIteration; i++)
@@ -76,7 +76,7 @@ void Gyro::initializeGyro()
 
     x_offset = (short)(x/KalibirierungsIteration);
     y_offset = (short)(y/KalibirierungsIteration);
-    z_offset = (short)(z/KalibirierungsIteration);
+    z_offset = (short)(z/KalibirierungsIteration);*/
 
 }
 
